@@ -1,0 +1,365 @@
+
+
+@font-face {
+    font-family: "Arial";
+    src: url("../fonts/Arial.eot"); /* IE9 Compat Modes */
+    src: url("../fonts/Arial.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+      url("../fonts/Arial.otf") format("opentype"), /* Open Type Font */
+      url("../fonts/Arial.svg") format("svg"), /* Legacy iOS */
+      url("../fonts/Arial.ttf") format("truetype"), /* Safari, Android, iOS */
+      url("../fonts/Arial.woff") format("woff"), /* Modern Browsers */
+      url("../fonts/Arial.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+    font-size: 100%;
+    font-family: sans-serif;
+    color: #fff;
+	font: inherit;
+    vertical-align: baseline;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 14px;
+    position:relative;
+    z-index: 30;
+}
+
+header h2#brand{
+    background: url(../img/brand.png);
+    background-size: 100%;
+    display: block;
+    height: 60px;
+    width: 143px;
+    text-indent: -99999px;
+}
+
+header #btn-menu{
+    background: url(../img/btn-menu-open.png);
+    background-size: 100%;
+    display: block;
+    height: 30px;
+    width: 32px;
+}
+
+header #btn-menu.close{
+    background: url(../img/btn-menu-close.png);
+    background-size: 100%;
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;   
+}
+
+.row-pt{
+    padding-top:120px;
+}
+
+.col{
+    padding: 14px;
+}
+
+.col h3,
+.col p,
+.col a{
+    font-family: "Arial";
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.content {
+    padding-top: 30px;
+}
+
+.row.content .col{
+    padding:0;
+}
+
+.desk-show{
+    display: none!important;
+}
+
+/* About */
+#about{
+    display: none;
+    position: absolute;
+    top: 0;
+    transition: ease-in 0.5s;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    z-index: 20;
+}
+
+#about.show{
+    display: block;
+}
+
+#about .mt-120{
+    margin-top: 140px;
+}
+
+#about .show-f{
+    display: flex;
+}
+
+#about > div {
+    display: none;
+}
+
+#about a{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+    display: block;
+}
+
+#about .contact .request-pdf{
+    margin-top: 30px;
+}
+#about .contact .request-pdf > p{
+    margin-top: 18px;
+}
+
+/* Gallery */
+.owl-carousel {
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    background-color: #000;
+    z-index: 10;
+}
+
+.owl-carousel img.owl-lazy{
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.owl-carousel img.owl-lazy.img-desk{
+    display: none;
+}
+
+.owl-nav{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    margin-top: -26px;
+    padding: 0px 0px;
+    top: 50%;
+    left: 0;
+    width: 100%;
+}
+
+.owl-nav button{
+    outline: none;
+}
+
+.owl-nav button.disabled{
+    opacity: 0.4;
+}
+/* 
+.owl-nav button .btn-left{
+    background: url(../img/arrow-left.png);
+    background-size: 100%;   
+    height: 52px;
+    opacity: 0;
+    transition: ease-in 0.5s;
+    width: 26px;
+}
+
+.owl-nav button .btn-right{
+    background: url(../img/arrow-right.png);
+    background-size: 100%;
+    height: 52px;
+    opacity: 0;
+    width: 26px;
+    transition: ease-in 0.5s;
+} */
+.owl-nav button .btn-left{
+    background: url(../img/arrow-left-2.png);
+    background-size: 100%;   
+    height: 55px;
+    opacity: 0;
+    transition: ease-in 0.5s;
+    width: 42px;
+}
+
+.owl-nav button .btn-right{
+    background: url(../img/arrow-right-2.png);
+    background-size: 100%;
+    height: 55px;
+    opacity: 0;
+    width: 42px;
+    transition: ease-in 0.5s;
+}
+
+.owl-nav button .btn-left.show-btn{
+    opacity: 1;
+}
+
+.owl-nav button .btn-right.show-btn{
+    opacity: 1;
+}
+
+.projects{
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 10;
+}
+
+.projects .project-desc {
+    display: none;
+}
+
+.projects .project-desc.active {
+    display: block;
+}
+
+.projects .project-desc p{
+    font-family: "Arial";
+    font-size: 18px;
+    color: #ffffff;
+}
+
+
+@media (min-width: 768px) {
+    .col{
+        flex: 1;
+    }
+    .owl-carousel img.owl-lazy.img-desk{
+        display: block;
+    }
+    .owl-carousel img.owl-lazy.img-mb{
+        display: none;
+    }
+    
+    /* .row.content .col.col-medium{
+        padding: 0px 20px;
+    }
+    #about .row.contact .col-medium{
+        padding: 0px;
+    } */
+    #about .contact .data{
+        flex-basis: 1;
+    }
+
+    #about .contact .request-pdf{
+        flex-basis: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .mr{
+        margin-right: 180px;
+    }
+    .col{
+        padding: 0px 40px;
+    }
+    .mb-show{
+        display: none!important;
+    }
+    .desk-show{
+        display: block!important;
+    }
+    /* HEADER */
+    header{
+        padding: 40px;
+    }
+    /* ABOUT */
+    #about{
+        height: 100vh;
+    }
+    #about .contact{
+        flex-direction: row;
+    }
+    #about .contact .request-pdf{
+        flex-basis: 40%;
+    }
+    #about .contact .data{
+        flex-basis: initial;
+    }
+    #about .contact .request-pdf,
+    #about .contact .request-pdf > p{
+        margin-top: 0px;
+    }
+    /* GALLERY */
+    .owl-nav{
+        padding: 0px 30px;
+    }
+}
+@media (min-width: 992px) {
+    .mr{
+        margin-right: 180px;
+    }
+    .col{
+        padding: 0px 40px;
+    }
+    .mb-show{
+        display: none!important;
+    }
+    .desk-show{
+        display: block!important;
+    }
+    /* HEADER */
+    header{
+        padding: 40px;
+    }
+    /* ABOUT */
+    #about{
+        height: 100vh;
+    }
+    #about .contact{
+        flex-direction: row;
+    }
+    #about .contact .request-pdf{
+        flex-basis: 40%;
+    }
+    #about .contact .data{
+        flex-basis: initial;
+    }
+    #about .contact .request-pdf,
+    #about .contact .request-pdf > p{
+        margin-top: 0px;
+    }
+    /* GALLERY */
+    .owl-nav{
+        padding: 0px 30px;
+    }
+}

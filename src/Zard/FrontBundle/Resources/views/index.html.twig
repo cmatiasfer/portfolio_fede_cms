@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Portfolio Federico Bianchi</title>
+
+		{% set bundleFront = 'bundles/zardfront' %}
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset(bundleFront ~ '/img/favicon/apple-touch-icon.png') }}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ asset(bundleFront ~ '/img/favicon/favicon-32x32.png') }}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ asset(bundleFront ~ '/img/favicon/favicon-16x16.png') }} ">
+		<link rel="manifest" href="{{ asset(bundleFront ~ '/img/favicon/site.webmanifest') }} ">
+		<link rel="mask-icon" href="{{ asset(bundleFront ~ '/img/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		
+		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/owl.theme.default.min.css') }}">
+		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/owl.carousel.min.css') }}">
+		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/styles.css') }}">
+	</head>
+	<body>
+
+		<header>
+			<h2 id="brand">Federico Bianchi</h2>
+			<span id="btn-menu"></span>
+		</header>
+		
+		<div id="about">
+			<div class="row mt-120">
+				<div class="col">
+					<h3> Studio</h3>
+					<div class="content">
+						<p>
+							We are a full-service design studio based in Buenos Aires and Barcelona. 
+							We produce work that aims to be meanful and distintive by working closely 
+							with a selected network of collaborators <br>
+							<br>
+							We are an independent design studio based in Buenos Aires.
+							We believe that design is fundamentally a problem solving 
+							exercise that can be applied to any sector, discipline or media. 
+							We produce work that aims to be meanful and distintive by working 
+							closely with a selected network of collaborators<br>
+							<br>
+							WE LISTEN - ASK QUESTIONS - IDENTIFY PROBLEMS - 
+							EXPLORE IDEAS TOGETHER - AND HELP TRANSFORM STRATEGY 
+							INTO CREATIVE EXECUTION.
+						</p>
+					</div>
+				</div>
+				<div class="col">
+					<h3> Federico Bianchi</h3>
+					<div class="content">
+						<p>
+							Before working independently Federico Bianchi studied the Graphic Design career, obtaining said Title at the University
+							from Buenos Aires (UBA).<br>
+							<br>
+							Later in 2002 he moved to live in the city of Barcelona,
+							where he worked for nine years in studies of great importance as
+							Dockland, Summa, Ruiz + company, Enric Aguilera Asociados and Zelig Studio.
+							At the same time he collaborated in the Federico Helman Advertising Agency,
+							where he worked in the development of the brand Ciudad de Buenos Aires.<br>
+							<br>
+							During 2009-2010 he completed a Master in Motion Graphics at the School
+							BAU of Barcelona and at the same time began his journey as a designer
+							freelance working for brands and projects in that city.<br>
+
+							Since 2010 he resides again in Argentina, where he carries out
+							different projects in his own studio, either for his own clients
+							in Barcelona and Buenos Aires or collaborating for agencies 
+							or studios in both cities.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<h3 class="desk-show">Portfolio:</h3>
+					<div class="row content contact">
+						<div class="col request-pdf desk-show">
+							<p>
+								Prospective clients please request<br> a selected portfolio PDF here.
+							</p>
+						</div>
+						<div class="col data">
+							<a href=""> C/Acassuso 35, <br> 3ºA
+								San Isidro 1642</a> 
+							
+							<a href="tel:+541147320135">T.  5411 4732 0135</a>     
+							<a href="tel:+541557523750">C. 15 5752 3750</a>
+							<a href="mail:fb@federico-bianchi.com">fb@federico-bianchi.com</a>     
+						</div>
+						<div class="col">
+						<a href="" target="blank">Instagram</a>
+						<a href="" target="blank">Facebook</a>
+						<a href="" target="blank">Behance</a>
+						</div>
+						<div class="col request-pdf mb-show">
+							<h3>Portfolio:</h3>
+							<p class="request-pdf">
+								Prospective clients please request a selected portfolio PDF here.
+							</p>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col"></div>
+			</div>                    
+		</div> 
+
+		<div class="owl-carousel">
+			{% for image in projectsGallery %}
+				<div class="item" data-project="{{image.projects.id}}">
+					{% set hiddenImageDesktop = false %}
+					{% if image.imageMobile != "" %}
+						{% set hiddenImageDesktop = true %}
+						<img class="owl-lazy img-mb" data-src="{{ asset('images/projects_gallery/' ~ image.imageMobile) }}" alt="" srcset=""> 
+					{% endif %}
+					<img class="owl-lazy {{ hiddenImageDesktop ? 'img-desk' : '' }}" data-src="{{ asset('images/projects_gallery/' ~ image.mainImage) }}" alt="" srcset="">
+					{#  #}
+				</div>
+			{% endfor %}
+			{# <div class="item"> <img class="owl-lazy" data-src="{{ asset('images/larsen.jpg') }}" alt="" srcset="">  </div>
+			<div class="item"> <img class="owl-lazy" data-src="{{ asset('images/project.jpg') }}" alt="" srcset="">  </div> #}
+		</div>
+		<div class="projects">
+			{% for project in projects %}
+				{% if project.text != "" %}
+					<span class="project-desc" style="color:{{ project.color }}" data-project="{{ project.id }}">{{ project.text|raw }}</span>
+				{% endif %}
+			{% endfor %}
+		</div>
+	
+
+		<script src="{{ asset(bundleFront ~ '/js/jquery.slim.min.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/owl.carousel.min.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/jquery.start.js') }}"></script>
+	</body>
+</html>

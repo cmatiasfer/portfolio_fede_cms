@@ -1,0 +1,13 @@
+/* font converted using font-converter.net. thank you! */
+@font-face {
+  font-family: "ArialMT";
+  src: url("./fonts/Arial.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/Arial.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/Arial.otf") format("opentype"), /* Open Type Font */
+    url("./fonts/Arial.svg") format("svg"), /* Legacy iOS */
+    url("./fonts/Arial.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./fonts/Arial.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/Arial.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
