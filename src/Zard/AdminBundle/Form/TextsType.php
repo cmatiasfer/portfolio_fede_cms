@@ -19,18 +19,20 @@ class TextsType extends AbstractType
                     'class' => 'col-sm-12'
                 ]
             ])
-            ->add('title',TextType::class, [
-                'label' => 'Title EN'
+            ->add('title', TextType::class, [
+                'label' => 'Title',
+                'required' => false,
+                'empty_data' => '',
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Text EN',
+                'label' => 'Text',
                 'required' => false,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'applyCKEditor'
                 ]
             ])
-            ->add('seoTitle',TextType::class, [
+            ->add('seoTitle', TextType::class, [
                 'label' => 'Seo Title',
                 'required' => false,
                 'empty_data' => ''

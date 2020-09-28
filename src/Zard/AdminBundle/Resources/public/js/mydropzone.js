@@ -1,83 +1,66 @@
-//version: 1v
-//31/05
+//Globals
+var imageDefaultName = ''; // On gallery uploading
+var newDefaultImageName = ''; // On gallery image deleteing
+var deletedImage = ''; // Deleted imagen from gallery
+var indexGalleryImage = 0;
+var disableGalleryBtnActions = () => {
+	$('.btn-insert-image, .item .actions').addClass('disabled');
+}
+var enableGalleryBtnActions = () => {
+	$('.btn-insert-image, .item .actions').removeClass('disabled');
+}
+var filesUploaded = 0;
+
+//version: 1.1v
+//23/09
 Dropzone.autoDiscover = false;
 $(function () {
+	currentId = $("#entity").attr("data-id");
 	var section = $("#entity").attr("data-name");
-	// var GALLERY = $("#entity").attr("data-gallery");
-	var currentId = $("#entity").attr("data-id");
-	var folder = $("#entity").attr("data-folder");
+
 	var settings = {};
+	var addForm = $(".dropzoneGallery").attr('data-addForm');
+	var rules_images = $(".dropzoneGallery").attr('data-rules');
 
-	switch (section) {
-		case "home":
-			settings = {
-				dropzoneStart: true,
-				section: section,
-				itemId: currentId,
-				folder: folder,
-				maxImageWidth: 1400,
-				maxImageHeight: 1200,
-				maxFilesize: 10,
-				typesFiles: ".jpg,.jpeg",
-				langText: "es",
-				openForm: true,
-				entityGallery: folder,
-				inputOrder: false,
-				debug: false
-			};
-			break;
-		case "studio":
-			settings = {
-				dropzoneStart: true,
-				section: section,
-				itemId: currentId,
-				folder: folder,
-				maxImageWidth: 1280,
-				maxImageHeight: 720,
-				maxFilesize: 10,
-				typesFiles: ".jpg,.jpeg",
-				langText: "es",
-				openForm: true,
-				entityGallery: folder,
-				inputOrder: false,
-				debug: false
-			};
-			break;
-		case "project":
-			settings = {
-				dropzoneStart: true,
-				section: section,
-				itemId: currentId,
-				folder: folder,
-				maxImageWidth: 1280,
-				maxImageHeight: 720,
-				maxFilesize: 10,
-				typesFiles: ".jpg,.jpeg",
-				langText: "es",
-				openForm: true,
-				entityGallery: folder,
-				inputOrder: false,
-				debug: false
-			};
-			break;
-	}
+	var fileType = $(".dropzoneGallery").attr('data-filetype');
+	var lang = $(".dropzoneGallery").attr('data-lang');
+	var maxfilesize = $(".dropzoneGallery").attr('data-maxfilesize');
+	var modeEditionImage = $(".dropzoneGallery").attr('data-modeeditionimage');
+	var folder = $("#entity").attr("data-folder");
+	var folderGallery = $("#entity").attr("data-foldergallery");
 
-	if (settings.dropzoneStart == true) {
+	settings = {
+		addForm: addForm,
+		dropzoneStart: true,
+		debug: true,
+		entityGallery: folder,
+		folder: folder,
+		folderGallery: folderGallery,
+		itemId: currentId,
+		rules: JSON.parse(rules_images),
+		inputOrder: false,
+		maxFilesize: maxfilesize,
+		modeEditionImage: modeEditionImage,
+		langText: lang,
+		typesFiles: fileType,
+		section: section,
+	};
+
+	setTimeout(function () {
 		var dz = createDropzone(settings);
-	} else {
-		$("#gallery").hide();
-		$(".buttons-listing-order").hide();
-	}
+	}, 500)
 
-	//buttons listing order
-	$(".buttons-listing-order .edit").click(function () {
+	/* BUTTONS LISTING ORDER  */
+	//btn edit
+	$(document).on('click', '.buttons-listing-order .edit', function () {
 		activeSortable();
 		$("#entity").find(".btn-success").not(".save-listing-order").attr("disabled", true);
 	});
 
-	$(".save-listing-order").click(function (e) {
+	//btn save
+	$(document).on('click', '.save-listing-order', function () {
 		$(".preload").fadeIn();
-		var json = JSONlistingOrder();
+		var json = JSONlistingOrder()
 		$.ajax({
 			url: "/gallery/" + settings.entityGallery + "/update_listing_order",
 			type: "POST",
@@ -87,15 +70,18 @@ $(function () {
 				$(".preload").fadeOut();
 				$("#entity").find(".btn-success").attr("disabled", false);
 				if (settings.langText == "es") {
-					toastr.success("Orden Actualizado!");
+					toastr.success("Orden actualizado!");
 				} else {
-					toastr.success("Listing Order Updated!");
+					toastr.success("Orden actualizado!");
 				}
+
 				disableSortable();
 			}
 		});
 	});
-	//Buttons Items
+
+	/* BUTTONS ACTIONS FOR IMAGES (3) / SHOW - OPEN FORM UPDATE - DELETE   */
+	// (1)Button Show
 	$(document).on("click", ".showItem", function () {
 		var imageName = $(this).parent().parent().attr("data-name");
 		var html = $(".preview").find("span[data-name='" + imageName + "']").attr("data-html");
@@ -111,6 +97,7 @@ $(function () {
 		});
 	});
 
+	// (2)Button Update
 	$(document).on("click", ".updateItem", function () {
 		var section = $("#entity").attr("data-name");
 		var id = $(this).parent().parent().attr("data-id");
@@ -118,8 +105,16 @@ $(function () {
 		var type = fileName.split(".");
 
 		var dataURL = "currentId=" + id;
-		var html = '<div class="preload"><div class="bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div></div>';
-		form_modal.setContent(html);
+		var html_landing = "";
+		html_landing += "<div class='preload'>";
+		html_landing += "	<div class='bubblingG'>";
+		html_landing += "		<span id='bubblingG_1'></span>";
+		html_landing += "		<span id='bubblingG_2'></span>";
+		html_landing += "		<span id='bubblingG_3'></span>";
+		html_landing += "	</div>";
+		html_landing += "</div>";
+
+		form_modal.setContent(html_landing);
 		form_modal.open();
 		$.ajax({
 			url: "/gallery/" + settings.entityGallery + "/edit_form/" + id,
@@ -139,13 +134,17 @@ $(function () {
 		});
 	});
 
+	// (3)Button Delete
 	$(document).on("click", ".trashItem", function () {
 		$(".preload").fadeIn();
+		deletedImage = $(this).parent().parent().data('name');
+		disableGalleryBtnActions();
 		$(this).parent().parent().parent().find("a").children(".btn").click();
 	});
 
-	$(document).on("submit", "form[name='" + settings.entityGallery + "']", function (e) {
-		e.preventDefault(e);
+	/* MODAL OPEN - ACTION BTN SUBMIT */
+	$(document).on("submit", "form[name='" + settings.folderGallery + "']", function (e) {
+		e.preventDefault();
 		Dropzone.autoDiscover = false;
 		var form = $(this);
 		var id = $(".tingle-modal-box").find("#seccion-ajax").attr("data-id");
@@ -169,6 +168,7 @@ $(function () {
 
 					//Reset Dropzone
 					$("#gallery").html("");
+					$("#gallery").append(loading("html"));
 					$("#gallery").append("<div class='dropzone'></div>");
 					createDropzone(settings);
 				} else {
@@ -197,6 +197,22 @@ $(function () {
 		showMethod: "fadeIn",
 		hideMethod: "fadeOut"
 	};
+
+	$(document).on('change', '#brands_gallery_effect', function () {
+		console.log($(this).val());
+		var currentValue = $(this).val();
+
+		if (currentValue != "fade" && currentValue != "bounce" && currentValue != "zoom") {
+			disableSelect("#brands_gallery_type");
+			disableSelect("#brands_gallery_direction");
+			disableSelect("#brands_gallery_duration");
+		} else {
+			enableSelect("#brands_gallery_type");
+			enableSelect("#brands_gallery_direction");
+			enableSelect("#brands_gallery_duration");
+		}
+
+	});
 
 	//modal
 	var showImage = new tingle.modal({
@@ -231,8 +247,7 @@ $(function () {
 	});
 
 	//CUSTOM SECTION
-	//$("#entity[data-editcurrentid]") : mode edit
-
+	// RedCreek - Dependiendo del valor de un select, muestro dropzone.
 	if ($("#entity[data-name='custom_section']") && $("#entity[data-id]")) {
 		$("#custom_section_template").change(function () {
 			var value = $(this).val();
@@ -256,41 +271,27 @@ $(function () {
 	}
 });
 
+function loading() {
+	var html = "";
+
+	html += "<div class='preload'>";
+	html += "	<div class='bubblingG'>";
+	html += "		<span id='bubblingG_1'></span>";
+	html += "		<span id='bubblingG_2'></span>";
+	html += "		<span id='bubblingG_3'></span>";
+	html += "	</div>";
+	html += "</div>";
+
+
+	return html;
+}
+
 function createDropzone(settings) {
 	if (settings.debug) {
 		console.log(settings);
 	}
 
-	//Text Gallery
-	var text_dim;
-	if (settings.doubleTypeImage) {
-		if (settings.langText == "es") {
-			text_dim = "Imagen Horizontal: " + settings.maxImageWidth + "x * px";
-			text_dim += "/ Imagen Vertical: " + settings.maxImageWidthVertical + "x * px";
-		} else {
-			text_dim = "Image Horizontal: " + settings.maxImageWidth + "x * px";
-			text_dim += "/ Image Vertical: " + settings.maxImageWidthVertical + "x * px";
-		}
-	} else {
-		text_dim = settings.maxImageWidth + " x * px";
-	}
-	var textGallery;
-	if (settings.langText == "es") {
-		textGallery = "<label> Arrastre los archivos dentro del area delimitada.";
-		textGallery += "<br> Ancho mínimo imágenes horizontal: " + settings.maxImageWidth + " px ";
-		if (settings.maxImageWidthVertical) {
-			textGallery += "<br> Ancho mínimo imágenes Vertical: " + settings.maxImageWidthVertical + " px";
-		}
-		textGallery += "<br> Tipos de archivos permitidos: " + settings.typesFiles;
-		textGallery += "<br> Peso máximo permitido por archivo: " + settings.maxFilesize + "MB </label>";
-	} else {
-		textGallery = "<label> Gallery (Width minimum:" + text_dim + ") ";
-		textGallery += "<br> Drop files here or click to upload.";
-		textGallery += "<br> Types of files allowed:" + settings.typesFiles;
-		textGallery += "<br> Maximum weight allowed per file: " + settings.maxFilesize + "MB </label>";
-	}
-
-	$("#gallery").prepend(textGallery);
+	$("#gallery").prepend(createDescription(settings));
 
 	var dropzone = $(".dropzone").dropzone({
 		maxFiles: 5000,
@@ -304,10 +305,8 @@ function createDropzone(settings) {
 		acceptedFiles: settings.typesFiles,
 		init: function () {
 			var dz = this;
-
 			this.on("thumbnail", function (file) {
-				htmlPreviewModal(settings.folder, file.name);
-
+				htmlPreviewModal(settings.folderGallery, file.name);
 				// Validacion
 				if (file.accepted || file.status == "added") {
 					var result_valid = validTypeImage(file.width, file.height, settings);
@@ -317,6 +316,9 @@ function createDropzone(settings) {
 					} else {
 						file.rejectDimensions();
 					}
+
+					filesUploaded++;
+					disableGalleryBtnActions();
 				}
 			});
 
@@ -332,22 +334,19 @@ function createDropzone(settings) {
 				},
 				success: function (data) {
 					$(".dz-default.dz-message").html("display", "none");
-
 					if (data) {
 						dz.on("addedfile", function (file) {
 							if (file.status != "added") {
-								//CREO PREVIEWS DE IMAGENES EN EL SERVIDOR
-								//Contador de images en memoria - Dropzone
+								// CREO PREVIEWS DE IMAGENES EN EL SERVIDOR
+								// Contador de images en memoria - Dropzone
 								var dz_images = $(".dz-preview").length - 1;
-
 								var get_id = data[1][dz_images].id;
 								var get_order = data[1][dz_images].order;
-
 								var form = createFormEdit(
 									get_id,
 									get_order,
 									data[0][dz_images].name,
-									settings.openForm,
+									settings.addForm,
 									settings.inputOrder
 								);
 								file.previewElement.appendChild(form);
@@ -361,7 +360,7 @@ function createDropzone(settings) {
 								if (nombreImgSplit[1] == "mp4" || nombreImgSplit[1] == "avi" || nombreImgSplit[1] == "mkv") {
 									dz.emit("thumbnail", value, "/bundles/zardadmin/dist/img/dz-ico-video.png");
 								} else {
-									dz.emit("thumbnail", value, "/images/" + settings.folder + "/" + nombreImg);
+									dz.emit("thumbnail", value, "/images/" + settings.folderGallery + "/" + nombreImg);
 								}
 								dz.emit("complete", value);
 							} else {
@@ -372,7 +371,11 @@ function createDropzone(settings) {
 					}
 				},
 				complete: function () {
-					$("#gallery").find(".preload").fadeOut("slow");
+					setTimeout(function () {
+						$("#gallery").find(".preload").fadeOut();
+					}, 1500);
+					// Init gallery Index
+					indexGalleryImage = $('.dz-preview').length;
 				}
 			});
 		},
@@ -409,14 +412,52 @@ function createDropzone(settings) {
 				type: "POST",
 				data: dataURL,
 				success: function (data) {
+					indexGalleryImage--;
 					file.previewElement.remove();
 					if (data.status != "ERROR") {
 						$(".preload").fadeOut();
 						if (settings.langText == "es") {
-							toastr.info("Item Eliminado!");
+							toastr.info("Elemento borrado!");
 						} else {
-							toastr.info("Item Deleted!");
+							toastr.info("Elemento borrado!");
 						}
+
+						var $firstItem = null;
+						var higherOrder = 10000000;
+						$(".item").each(function (index, element) {
+							if ($(this).attr("data-order") <= higherOrder) {
+								higherOrder = $(this).attr("data-order");
+								$firstItem = $(this);
+							}
+						});
+
+						if ($firstItem) {
+							newDefaultImageName = $firstItem.attr("data-name");
+						}
+
+						$(document).trigger('click', '.save-listing-order');
+						enableGalleryBtnActions();
+						$('.btn-insert-image img').each(function () {
+							if ($(this).attr('src') == '/images/products_gallery/' + deletedImage) {
+								if (newDefaultImageName == '') {
+									$(this).replaceWith('<i class="fa fa-camera"></i>');
+								} else {
+									if ($('.item')[0]) {
+										$(this).attr('src', '/images/products_gallery/' + newDefaultImageName);
+									} else {
+										$(this).replaceWith('<i class="fa fa-camera"></i>');
+										indexGalleryImage = 0;
+									}
+								}
+							}
+
+							if (!$('.item')[0]) {
+								$(this).replaceWith('<i class="fa fa-camera"></i>');
+								indexGalleryImage = 0;
+							}
+						});
+
+						/* generateVariants(); */
 					} else {
 						if (settings.langText == "es") {
 							toastr.error("Hubo un problema.En el Servidor!");
@@ -444,44 +485,58 @@ function createDropzone(settings) {
 				data: dataURL,
 				dataType: "json",
 				success: function (data) {
-					var item_final = 0;
-					var key_item_final = 0;
-					var count = 0;
-					//Capturo el ultimo registro
-					$.each(data[1], function (index, value) {
-						if (item_final <= value.id) {
-							key_item_final = index;
-							item_final = value.id;
-						}
-					});
-					//Añade input text y btn a div element
+					$('.btn-insert-image, .item .actions').removeClass('disabled');
+					enableGalleryBtnActions();
+
+					// Añade input text y btn a div element
 					var getId = "";
 					var getOrder = "";
 					var form = createFormEdit(
 						getId,
 						getOrder,
-						data[0][key_item_final].name,
-						settings.openForm,
+						data[0][indexGalleryImage].name,
+						settings.addForm,
 						settings.inputOrder
 					);
 					file.previewElement.append(form);
 					file.previewElement.children[4].style.opacity = 1;
 
-					//ADD PREVIEW
-					var fileName = data[0][key_item_final].name;
+					// ADD PREVIEW
+					var fileName = data[0][indexGalleryImage].name;
 
-					htmlPreviewModal(settings.folder, fileName);
+					htmlPreviewModal(settings.folderGallery, fileName);
 
 					$(".item").each(function (e) {
 						$(this).attr("data-id", data[1][e].id);
 						$(this).attr("data-order", data[1][e].order);
-						var fileName = data[0][e].name;
-						$(this)
-							.find(".order-image")
-							.val(data[1][e].order);
+						$(this).find(".order-image").val(data[1][e].order);
 					});
+
+					imageDefaultName = data[0][0].name;
+					if ($('.fa.fa-camera')[0]) {
+						$('.fa.fa-camera').each(function () {
+							$(this).replaceWith("<img src='/images/products_gallery/" + imageDefaultName + "' style='width:40px;' ></img>");
+						});
+					}
+
+					indexGalleryImage++;
 				}
 			});
+
+			// Esto detecta cuando la cola de archivos subidos a la galería esta en 0
+			// En ese caso estarían todas las imágenes cargadas
+			// Lo idel es recargar y ordenar la galería en este momento
+			/* if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) { */
+			/* generateVariants(); */
+			/* $(".preload").fadeIn();
+			setTimeout(function () {
+				//Reset Dropzone
+				$("#gallery").html("");
+				$("#gallery").append(loading());
+				$("#gallery").append("<div class='dropzone'></div>");
+				createDropzone(settings);
+			}, 1500);
+		} */
 		},
 		sending: function (file, xhr, formData) {
 			var total = $(".item").length;
@@ -493,27 +548,31 @@ function createDropzone(settings) {
 				}
 			});
 
-			if (settings.doubleTypeImage) {
+			/* if (file.width == file.height) {
+				typeImg = "cuadrado";
+			} else {
 				if (file.width > file.height) {
 					typeImg = "horizontal";
 				} else {
 					typeImg = "vertical";
 				}
-				formData.append("type", typeImg);
-			}
+			} */
+			/* var typeImg = "full-width";
+			formData.append("type", typeImg); */
 		}
 	});
+
 	return dropzone;
 }
 
-function createFormEdit(id, order, fileName, openForm, inputOrder) {
+function createFormEdit(id, order, fileName, addForm, inputOrder) {
 	//Creo un elemento padre(div) y dos hijos(inputText y contenedor de buttonUpdate)
 
 	var divElement = document.createElement("div");
 	var inputElement = document.createElement("input");
 	var BtnViewImageElement = document.createElement("div");
 	var BtnUpdateElement;
-	if (openForm) {
+	if (addForm) {
 		BtnUpdateElement = document.createElement("div");
 	}
 	var BtnDeleteElement = document.createElement("div");
@@ -528,7 +587,7 @@ function createFormEdit(id, order, fileName, openForm, inputOrder) {
 		"<div class='btn bg-orange'><i class='fa fa-eye'></i></div>";
 	BtnViewImageElement.className = "showItem";
 	//Propiedades btnUpdate
-	if (openForm) {
+	if (addForm) {
 		// BtnUpdateElement.innerHTML = "<div class='btn bg-olive disabled'><i class='fa fa-pencil '></i></div>";
 		BtnUpdateElement.innerHTML =
 			"<div class='btn bg-olive'><i class='fa fa-pencil '></i></div>";
@@ -549,7 +608,7 @@ function createFormEdit(id, order, fileName, openForm, inputOrder) {
 	}
 	actions.className = "actions";
 	actions.appendChild(BtnViewImageElement);
-	if (openForm) {
+	if (addForm) {
 		actions.appendChild(BtnUpdateElement);
 	}
 	actions.appendChild(BtnDeleteElement);
@@ -636,23 +695,85 @@ function resetJs(modal) {
 			new Cropper($(this));
 		});
 	}
-
-	$.fn.cropper.setDefaults({
-		aspectRatio: 1.7777777777,
+	var ruleWidth = $(".cropper-local button").parent().parent().parent().attr('data-max-width');
+	var ruleHeight = $(".cropper-local button").parent().parent().parent().attr('data-max-height');
+	//Width&Height limit
+	console.log("Width & height limit");
+	configCroppper = {
+		aspectRatio: ruleWidth / ruleHeight,
+		viewMode: 3,
+		autoCrop: true,
 		zoomable: false,
-		cropBoxResizable: false,
+		cropBoxResizable: true,
 		movable: false,
-		dragCrop: false,
-		dragMode: "none"
+		dragCrop: true,
+		dragMode: "none",
+		background: true,
+		ready: function (event) {
+			var currentImageWidth = event.srcElement.width;
+			var currentImageHeight = event.srcElement.height;
+			$('.modal .modal-body .row.msg').remove();
+			$('.cropper-container').removeClass('cropper-disabled');
+			$('[data-method="getCroppedCanvas"]').removeAttr('disabled');
+			if (currentImageWidth <= ruleWidth || currentImageHeight <= ruleHeight) {
+				console.log("es menor");
+				var htmlInvalid = '<div class="row msg" >';
+				htmlInvalid += '<div> <span class="cropper-dim-invalid">Imagen demasiado pequeña: ' + currentImageWidth + 'x' + currentImageHeight + ' </span> </div>';
+				htmlInvalid += '</div>';
+				$('.modal .modal-body').append(htmlInvalid);
+				$('.cropper-container').addClass('cropper-disabled');
+				$('[data-method="getCroppedCanvas"]').attr('disabled', 'disabled');
+			}
+			$(this).cropper('setData', {
+				width: ruleWidth,
+				height: ruleHeight
+			});
+		}
+	}
+	$.fn.cropper.setDefaults(configCroppper);
+	$.fn.cropper('getCroppedCanvas', {
+		fillColor: '#fff'
 	});
 
-	//generateCKEditor()
 
-	if ($("#" + modal + "_text_EN")[0] || $("#" + modal + "_text")[0]) {
-		generateCKEditor("#" + modal + "_text");
+	if ($("#home_gallery_text")[0]) {
+		CKEDITOR.replace('home_gallery_text', { height: '100px' });
+		/* generateCKEditor("#home_gallery_text"); */
 	}
-	if ($("#" + modal + "_title")[0]) {
-		generateCKEditor("#" + modal + "_title");
+	if ($('#home_gallery_color')[0]) {
+		console.log("Test!");
+
+		var $element = $('#home_gallery_color')
+		$element.keypress(function (e) {
+			e.preventDefault();
+		});
+		if ($element.val()) {
+			$element.css({
+				'backgroundColor': $element.val(),
+				'color': $element.val()
+			});
+			$element.val($element.val());
+		}
+		$($element).ColorPicker({
+			color: $element.val(),
+			onShow: function (colpkr) {
+				$(colpkr).fadeIn(500);
+				return false;
+			},
+			onHide: function (colpkr) {
+				$(colpkr).fadeOut(500);
+				return false;
+			},
+			onChange: function (hsb, hex, rgb) {
+				var colorPicked = '#' + hex;
+				$element.css({
+					'backgroundColor': colorPicked,
+					'color': colorPicked
+				});
+				$element.val(colorPicked);
+				/* liveGradient($('#banner_bannerColorA').val(), $('#banner_bannerColorB').val()); */
+			}
+		});
 	}
 }
 
@@ -703,25 +824,182 @@ function generateCKEditor(textarea, type) {
 }
 
 function validTypeImage(fileW, fileH, settings) {
+	var rules = settings.rules;
 	var validImgMin = false;
 	var validImgMax = false;
 
-	if (fileW >= fileH) {
-		if (fileW >= settings.maxImageWidth) {
+	if ('type' in rules.dimensions) {
+		var currentImageType = "";
+		if (fileW < fileH) {
+			currentImageType = "vertical";
+		}
+		if (fileW == fileH) {
+			currentImageType = "box";
+		}
+		if (fileW > fileH) {
+			currentImageType = "horizontal";
+		}
+
+		const listRulesByType = rules.dimensions.type;
+		var ruleByType = listRulesByType[currentImageType];
+
+		var rulesWidth = ruleByType.width == undefined ? 0 : ruleByType.width;
+		var rulesHeight = ruleByType.height == undefined ? 0 : ruleByType.height;
+		var rulesMaxWidth = rulesWidth + 20;
+		var rulesMaxHeight = rulesWidth + 20;
+		console.log(fileW);
+		console.log(fileH);
+
+		/* 
+		//Rangos
+		if ((fileW >= rulesWidth && fileW <= rulesMaxWidth) && (fileH >= rulesHeight && fileH <= rulesMaxHeight)) { 
+		*/
+		if ((fileW >= rulesWidth) && (fileH >= rulesHeight)) {
 			validImgMin = true;
 			validImgMax = true;
 		}
 	} else {
-		if (settings.doubleTypeImage) {
-			if (fileW >= settings.maxImageWidthVertical) {
+		/* Modo máximo libre */
+		var rulesHeight = rules.dimensions.height == undefined ? 0 : rules.dimensions.height;
+		if (fileW >= rules.dimensions.width && fileH >= rulesHeight) {
+			validImgMin = true;
+			validImgMax = true;
+		}
+	}
+
+
+
+
+
+
+	/* 
+	var settingHeight = settings.ImageHeight;
+	var settingWidth = settings.ImageWidth;
+	var mode = "onlyHorizontal";
+	
+	if (settingWidth < settingHeight) {
+		mode = "onlyVertical";
+	}
+
+	if (fileW >= fileH) {
+		// Horizontal
+		if (mode == "onlyHorizontal") {
+		}
+
+	} else {
+		// Vertical
+		if (mode == "onlyVertical") {
+			if (fileW >= settings.ImageWidth && fileH >= settings.ImageHeight) {
 				validImgMin = true;
 				validImgMax = true;
 			}
-		} else {
-			validImgMin = false;
-			validImgMax = false;
 		}
 	}
-	console.log(validImgMin, validImgMax);
+	*/
 	return [validImgMin, validImgMax];
+}
+
+function createDescription(settings) {
+	/* 
+	var text_dim;
+	if (settings.doubleTypeImage) {
+		if (settings.langText == "es") {
+			text_dim = "Imagen Horizontal: " + settings.minImageWidthVertical + "x * px";
+			text_dim += "/ Imagen Vertical: " + settings.minImageHeightVertical + "x * px";
+		} else {
+			text_dim = "Image Horizontal: " + settings.minImageWidthVertical + "x * px";
+			text_dim += "/ Image Vertical: " + settings.minImageHeightVertical + "x * px";
+		}
+	} else {
+		text_dim = settings.maxImageWidth + " x * px";
+	} 
+	*/
+	var rules = settings.rules;
+	var textGallery;
+	if (settings.langText == "es") {
+		/* var ratio = "16:9";
+		if (rules.dimensions.width < rules.dimensions.height) {
+			var ratio = "9:16";
+		} */
+		var rulesHeigth = rules.dimensions.height == undefined ? 0 : rules.dimensions.height;
+		textGallery = "<label> Arrastre los archivos dentro del area delimitada.";
+		/* textGallery += "<br> Ratio: " + ratio; */
+		textGallery += "<br> Dimensiones mínimas:";
+		if ('type' in rules.dimensions) {
+			textGallery += "<br>";
+			for (type in rules.dimensions.type) {
+
+				var text_type = "Formato ";
+				if (type == "box") {
+					text_type += "Cuadrado";
+				}
+				if (type == "horizontal") {
+					text_type += "Rectangular";
+				}
+				if (type == "vertical") {
+					text_type += "Vertical";
+				}
+				textGallery += text_type + ": " + rules.dimensions.type[type]["width"];
+				if ('height' in rules.dimensions.type[type]) {
+					textGallery += "x" + rules.dimensions.type[type]["height"];
+				}
+				textGallery += "px <br>";
+
+			}
+		} else {
+			textGallery += rules.dimensions.width + " px ";
+		}
+
+
+		if (rulesHeigth > 0) {
+			textGallery += "<br> Alto mínimo imágenes: " + rulesHeigth + " px ";
+		}
+		textGallery += "<br> Tipos de archivos permitidos: " + settings.typesFiles;
+		textGallery += "<br> Peso máximo permitido por archivo: " + settings.maxFilesize + "MB </label>";
+	}
+	/*  else {
+		// Convert text es to en
+		textGallery = "<label> Gallery (Width minimum:" + text_dim + ") ";
+		textGallery += "<br> Drop files here or click to upload.";
+		textGallery += "<br> Types of files allowed:" + settings.typesFiles;
+		textGallery += "<br> Maximum weight allowed per file: " + settings.maxFilesize + "MB </label>";
+	} */
+	return textGallery;
+}
+
+function disableSelect(select) {
+	$(select + "option:first").attr('selected', true);
+	$(select).val('');
+	$(select).attr('disabled', 'disabled');
+}
+function enableSelect(select) {
+	$(select + "option:first").attr('selected', true);
+	$(select).val('');
+	$(select).removeAttr('disabled');
+}
+
+function setColorPicker(input) {
+	var $element = $(input)
+	$element.keypress(function (e) {
+		e.preventDefault();
+	});
+	if ($element.val()) {
+		setColor($element, $element.val());
+	}
+	$($element).ColorPicker({
+		color: $element.val(),
+		onShow: function (colpkr) {
+			$(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			$(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			var colorPicked = '#' + hex;
+			setColor($element, colorPicked);
+			/* liveGradient($('#banner_bannerColorA').val(), $('#banner_bannerColorB').val()); */
+		}
+	});
 }
