@@ -103,11 +103,17 @@ class ProjectsGallery
 
     /**
      * MAIN IMAGE
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $mainImage
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $mainImageFile
      */
-    public function setMainImageFile(?File $mainImage = null): void
+    public function setMainImageFile(?File $mainImageFile = null): void
     {
-        $this->mainImageFile = $mainImage;
+        $this->mainImageFile = $mainImageFile;
+
+        if (null !== $mainImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getMainImageFile(): ?File
@@ -140,11 +146,11 @@ class ProjectsGallery
 
     /**
      * COVER IMAGE
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageMobile
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageMobileFile
     */
-    public function setImageMobileFile(?File $imageMobile = null): void
+    public function setImageMobileFile(?File $imageMobileFile = null): void
     {
-        $this->imageMobileFile = $imageMobile;
+        $this->imageMobileFile = $imageMobileFile;
 
         if (null !== $imageMobileFile) {
             // It is required that at least one field changes if you are using doctrine
@@ -155,7 +161,7 @@ class ProjectsGallery
 
     public function getImageMobileFile(): ?File
     {
-        return $this->imageMobile;
+        return $this->imageMobileFile;
     }
 
     public function setImageMobile(?string $imageMobile): void
