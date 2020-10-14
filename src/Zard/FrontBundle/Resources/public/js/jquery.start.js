@@ -75,10 +75,11 @@ $(document).ready(function () {
   var owl = $(".owl-carousel").owlCarousel({
     animateIn: 'fadeIn',
     animateOut: 'fadeOut',
-    autoplay: false,
-    autoplayHoverPause: true,
+    autoplay: true,
+    autoplayHoverPause: false,
     dots: false,
     items: 1,
+    autoplayTimeout:7000,
     lazyLoad: true,
     loop: true,
     nav: true,
