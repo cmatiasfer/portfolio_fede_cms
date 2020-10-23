@@ -70,8 +70,8 @@ $(document).ready(function () {
     $(".cropper-local button").click(function (e) {
         e.preventDefault();
         alert();
-        var ruleWidth = $(this).parent().parent().parent().attr('data-max-width');
-        var ruleHeight = $(this).parent().parent().parent().attr('data-max-height');
+        var ruleWidth = parseInt($(this).parent().parent().parent().attr('data-max-width')) - 50 ;
+        var ruleHeight = parseInt($(this).parent().parent().parent().attr('data-max-height')) - 50;
         //Width&Height limit
         console.log("Width & height limit");
         configCroppper = {
@@ -90,7 +90,7 @@ $(document).ready(function () {
                 $('.modal .modal-body .row.msg').remove();
                 $('.cropper-container').removeClass('cropper-disabled');
                 $('[data-method="getCroppedCanvas"]').removeAttr('disabled');
-                console.log("x");
+                
                 console.log(currentImageWidth);
                 console.log(ruleWidth);
                 console.log(currentImageHeight);

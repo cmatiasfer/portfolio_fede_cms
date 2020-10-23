@@ -92,4 +92,10 @@ $(document).ready(function () {
     $(".project-desc").removeClass("active");
     $(".projects").find(".project-desc[data-project='" + idProject + "']").addClass('active');
   });
+
+  $('.languages .lang').click(function(){
+    var lang = $(this).attr('data-lang');
+    console.log('hola');
+    console.log(lang);
+  });
 });

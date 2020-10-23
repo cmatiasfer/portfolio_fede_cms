@@ -695,8 +695,8 @@ function resetJs(modal) {
 			new Cropper($(this));
 		});
 	}
-	var ruleWidth = $(".cropper-local button").parent().parent().parent().attr('data-max-width');
-	var ruleHeight = $(".cropper-local button").parent().parent().parent().attr('data-max-height');
+	var ruleWidth = parseInt($(this).parent().parent().parent().attr('data-max-width')) - 50 ;
+	var ruleHeight = parseInt($(this).parent().parent().parent().attr('data-max-height')) - 50;
 	//Width&Height limit
 	console.log("Width & height limit");
 	configCroppper = {

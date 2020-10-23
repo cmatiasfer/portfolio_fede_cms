@@ -55,12 +55,32 @@ header h2#brand{
     background: url(../img/brand.png);
     background-size: 100%;
     display: block;
-    height: 50px;
-    width: 120px;
+    height: 41px;
+    width: 98px;
     text-indent: -99999px;
 }
 
-header #btn-menu{
+header .btn-header{
+    display: flex;
+    justify-content: space-between;
+    width: 120px;   
+}
+
+header .btn-header .languages{
+    display: flex;
+}
+
+header .btn-header .languages span{
+    font-family: "Arial";
+    font-size: 12px;
+    color: #ffffff;
+    padding: 0px 3px;
+}
+header .btn-header .languages span.lang{
+    cursor: pointer;
+}
+
+header .btn-header #btn-menu{
     background: url(../img/btn-menu-open.png);
     background-size: 100%;
     display: block;
@@ -68,7 +88,7 @@ header #btn-menu{
     width: 20px;
 }
 
-header #btn-menu.close{
+header .btn-header #btn-menu.close{
     background: url(../img/btn-menu-close.png);
     background-size: 100%;
     display: block;
