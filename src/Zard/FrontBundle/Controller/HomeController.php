@@ -14,9 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home" )
+     * @Route("/{_locale}", name="home" , defaults={"_locale"="es"}, requirements={
+     *     "_locale"="en|es"
+     * })
      */
-    public function index(Request $request, HomeRepository $homeRepository , ProjectsGalleryRepository $projectsGalleryRepository,ProjectsRepository $projectsRepository)
+    public function index($_locale, Request $request, HomeRepository $homeRepository, ProjectsGalleryRepository $projectsGalleryRepository,ProjectsRepository $projectsRepository)
     {
         $slideHome = $homeRepository->findOneBy(['name' => 'home']);
 
@@ -30,9 +32,10 @@ class HomeController extends AbstractController
 
         $projects = $projectsRepository->findBy([], ["listingOrder" => "ASC"]);        
 
-        return $this->render('@front_views/index.html.twig',[
+        return $this->render('@front_views/index.html.twig', [
             "projectsGallery" => $projectsGallery,
-            "projects" => $projects
+            "projects" => $projects,
+            'lang_url' => $_locale
         ]);
     }
 }

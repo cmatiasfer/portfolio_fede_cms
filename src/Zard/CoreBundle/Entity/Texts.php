@@ -29,12 +29,22 @@ class Texts
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $title;
+    private $titleEN;
 
     /**
      * @ORM\Column(type="text" , nullable=true)
      */
-    private $text;
+    private $textEN;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titleES;
+
+    /**
+     * @ORM\Column(type="text" , nullable=true)
+     */
+    private $textES;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -75,30 +85,6 @@ class Texts
         return $this;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-      public function getText(): ?string
-    {
-        return $this->text;
-    }
-
-    public function setText(string $text): self
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
     public function getSeoTitle(): ?string
     {
         return $this->seoTitle;
@@ -119,6 +105,54 @@ class Texts
     public function setSeoDesc(?string $seoDesc): self
     {
         $this->seoDesc = $seoDesc;
+
+        return $this;
+    }
+
+    public function getTitleEN(): ?string
+    {
+        return $this->titleEN;
+    }
+
+    public function setTitleEN(?string $titleEN): self
+    {
+        $this->titleEN = $titleEN;
+
+        return $this;
+    }
+
+    public function getTextEN(): ?string
+    {
+        return $this->textEN;
+    }
+
+    public function setTextEN(?string $textEN): self
+    {
+        $this->textEN = $textEN;
+
+        return $this;
+    }
+
+    public function getTitleES(): ?string
+    {
+        return $this->titleES;
+    }
+
+    public function setTitleES(?string $titleES): self
+    {
+        $this->titleES = $titleES;
+
+        return $this;
+    }
+
+    public function getTextES(): ?string
+    {
+        return $this->textES;
+    }
+
+    public function setTextES(?string $textES): self
+    {
+        $this->textES = $textES;
 
         return $this;
     }

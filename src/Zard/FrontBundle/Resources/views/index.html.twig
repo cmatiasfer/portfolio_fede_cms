@@ -5,9 +5,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="keywords" content="{{ tt('PAGE_HOME','SEO_TITLE')}}">
-    	<meta name="description" content="{{ tt('PAGE_HOME','SEO_DESC')}}">
-		<title>{{ tt('PAGE_HOME','SEO_TITLE')}}</title>
+		<meta name="keywords" content="{{ tt('PAGE_HOME','SEO_TITLE',lang_url)}}">
+    	<meta name="description" content="{{ tt('PAGE_HOME','SEO_DESC',lang_url)}}">
+		<title>{{ tt('PAGE_HOME','SEO_TITLE',lang_url)}}</title>
 
 		{% set bundleFront = 'bundles/zardfront' %}
 		
@@ -29,9 +29,15 @@
 			<h2 id="brand">Federico Bianchi</h2>
 			<div class="btn-header">
 				<div class="languages">
-					<span class="lang" data-lang="eng">ENG</span>
+					<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"
+					class="{{ lang_url == 'es' ? 'active' : '' }}">
+						ES
+					</a>
 					<span> /</span>
-					<span class="lang" data-lang="esp">ESP</span>
+					<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"
+					class="{{ lang_url == 'en' ? 'active' : '' }}">
+						EN
+					</a>
 				</div>
 				<span id="btn-menu"></span>
 			</div>
@@ -40,37 +46,37 @@
 		<div id="about">
 			<div class="row mt-120">
 				<div class="col">
-					<h3>{{ tt('ABOUT_STUDIO','TITLE')}}</h3>
+					<h3>{{ tt('ABOUT_STUDIO','TITLE',lang_url)}}</h3>
 					<div class="content">
-						{{ tt('ABOUT_STUDIO','TEXT')|raw }}
+						{{ tt('ABOUT_STUDIO','TEXT',lang_url)|raw }}
 					</div>
 				</div>
 				<div class="col">
 					<h3> Federico Bianchi</h3>
 					<div class="content">
-						{{ tt('ABOUT_FEDERICO_BIANCHI','TEXT')|raw }}				
+						{{ tt('ABOUT_FEDERICO_BIANCHI','TEXT',lang_url)|raw }}				
 					</div>
 				</div>
 			</div>
 			<div class="row container-data">
 				<div class="col-md-80">
-					<h3 class="desk-show">{{ tt('ABOUT_PORTFOLIO','TITLE') }}</h3>
+					<h3 class="desk-show">{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
 					<div class="row content contact">
 						<div class="col request-pdf desk-show">
 							<p>
-								{{ tt('ABOUT_PORTFOLIO','TEXT')|striptags('<a><br><strong><i>')|raw }}
+								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 							</p>
 						</div>
 						<div class="col data">
-							{{ tt('CONTACT_DATA','TEXT')|striptags('<a><br><strong><i>')|raw }}
+							{{ tt('CONTACT_DATA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 						</div>
 						<div class="col">
-							{{ tt('LINK_REDES','TEXT')|striptags('<a><br><strong><i>')|raw }}
+							{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 						</div>
 						<div class="col request-pdf mb-show">
-							<h3>{{ tt('ABOUT_PORTFOLIO','TITLE') }}</h3>
+							<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
 							<p class="request-pdf">
-								{{ tt('ABOUT_PORTFOLIO','TEXT')|striptags('<a><br><strong><i>')|raw }}
+								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 							</p>
 						</div>
 					</div>

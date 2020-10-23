@@ -31,15 +31,18 @@ class LangExtension extends AbstractExtension
         ];
     }
 
-    public function tt($variable , $type = '')
+    public function tt($variable , $type = '', $lang)
     {   
         $uppercase_type = ucwords($type); 
+        $uppercase_lang = ucwords($lang); 
         $res_variable = $this->text->findOneBy(['variable' => $variable]);
         
-        $getterTitle = 'gettitle';
-        $getterText = 'gettext';
+        $getterTitle = 'gettitle'.$uppercase_lang;
+        $getterText = 'gettext'.$uppercase_lang;
         $getterSeoTitle = 'getSeoTitle';
         $getterSeoDesc = 'getSeoDesc';
+        
+        
         if($res_variable != null){
             switch($uppercase_type){
                 case 'TITLE':

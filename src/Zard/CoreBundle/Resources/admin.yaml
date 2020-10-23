@@ -49,7 +49,7 @@ admin:
             list:
                 columns: 
                     Variable: variable
-                    Titulo: title
+                    Titulo: titleEN
                     Sección: section
         projects:
             config:

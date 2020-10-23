@@ -70,14 +70,17 @@ header .btn-header .languages{
     display: flex;
 }
 
-header .btn-header .languages span{
+header .btn-header .languages span,
+header .btn-header .languages a{
     font-family: "Arial";
     font-size: 12px;
     color: #ffffff;
     padding: 0px 3px;
+    text-decoration: none;
 }
-header .btn-header .languages span.lang{
-    cursor: pointer;
+
+header .btn-header .languages a.active{
+    text-decoration: underline;
 }
 
 header .btn-header #btn-menu{

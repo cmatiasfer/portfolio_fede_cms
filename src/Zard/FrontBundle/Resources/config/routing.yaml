@@ -2,8 +2,8 @@ app_annotations:
     # loads routes from the PHP annotations of the controllers found in that directory
     resource: '../src/Zard/FrontBundle/Controller/'
     type:     annotation
-    #prefix:
-    #    en: '' # don't prefix URLs for English, the default locale
-    #    es: '/es'
+    prefix:
+        es: '' # don't prefix URLs for English, the default locale
+        en: '/en'
     #    jp: '/jp'
     
