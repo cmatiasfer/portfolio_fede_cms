@@ -43,7 +43,9 @@ class GalleryController extends AbstractController
 			$type = $file->getMimeType();
 			if($type != 'video/mp4'){
 				$configSection = $adminService->getConfigSection();
-				$adminService->modifyImage( $fileTemp, $configSection["config"]["DROPZONE"]["rules_image"] );
+				if(array_key_exists("mode",$configSection["config"]["DROPZONE"]["rules_image"])){
+					$adminService->modifyImage( $fileTemp, $configSection["config"]["DROPZONE"]["rules_image"] );
+				}
 			}
 			
 			$row = $em->getRepository("AppRemo:".$_section->toPascal())->findOneBy([ "id" => $id]);

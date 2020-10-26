@@ -58,10 +58,10 @@ admin:
                     rules_image:
                         dimensions:
                             width: 1280
-                            height: 650                            
-                        mode:
-                            - resizeToWidth
-                            - crop
+                            #height: 650                            
+                        #mode:
+                            #- resizeToWidth
+                            #- crop
                     FILETYPE: '.jpg,.jpeg'
                     LANG: 'es'
                     MAXFILESIZE: '4'
