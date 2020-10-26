@@ -62,7 +62,7 @@ admin:
                         #mode:
                             #- resizeToWidth
                             #- crop
-                    FILETYPE: '.jpg,.jpeg'
+                    FILETYPE: '.jpg,.jpeg,.gif'
                     LANG: 'es'
                     MAXFILESIZE: '4'
                     ADD_FORM: true

@@ -718,6 +718,18 @@ function resetJs(modal) {
 			$('.modal .modal-body .row.msg').remove();
 			$('.cropper-container').removeClass('cropper-disabled');
 			$('[data-method="getCroppedCanvas"]').removeAttr('disabled');
+			
+			var name64 = $(this).attr("src");
+			var tipo = base64Extension(name64);
+			console.log(name64, tipo);
+
+			if (tipo == "gif") {
+					$(this).addClass("imgFullOpen");
+					$(this).cropper("clear");
+					$(this).cropper("disable");
+			}
+			
+			
 			if (currentImageWidth <= ruleWidth || currentImageHeight <= ruleHeight) {
 				console.log("es menor");
 				var htmlInvalid = '<div class="row msg" >';
@@ -1005,4 +1017,9 @@ function setColorPicker(input) {
 			/* liveGradient($('#banner_bannerColorA').val(), $('#banner_bannerColorB').val()); */
 		}
 	});
+}
+
+function base64Extension(name64) {
+	const type = name64.split(';')[0].split('/')[1];
+	return type;
 }

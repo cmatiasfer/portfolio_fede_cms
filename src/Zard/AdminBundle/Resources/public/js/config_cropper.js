@@ -124,18 +124,22 @@ $(function () {
             var name64 = $(this).parent().parent().children(".modal-body").children().children().children().find(".cropper-hidden").attr("src");
 
             var tipo = base64Extension(name64);
+            console.log("btnprimeray");
             if (tipo == "gif") {
+                console.log("gif");
                 if ($(".imgFullOpen")[0]) {
                     setTimeout(function () {
-                        $("#team_members_fullImageFile_base64").val(name64);
-                        $("#team_members_fullImageFile_base64").parent().children(".cropper-canvas-container").html("");
-                        $("#team_members_fullImageFile_base64").parent().children(".cropper-canvas-container").html("<img src='" + name64 + "' height=400/> ");
+                        console.log("full");
+                        $("#projects_gallery_imageMobileFile_base64").val(name64);
+                        $("#projects_gallery_imageMobileFile_base64").parent().children(".cropper-canvas-container").html("");
+                        $("#projects_gallery_imageMobileFile_base64").parent().children(".cropper-canvas-container").html("<img src='" + name64 + "' height=400/> ");
                     }, 1000);
                 } else {
                     setTimeout(function () {
-                        $("#team_members_imageFile_base64").val(name64);
-                        $("#team_members_imageFile_base64").parent().children(".cropper-canvas-container").html("");
-                        $("#team_members_imageFile_base64").parent().children(".cropper-canvas-container").html("<img src='" + name64 + "' height=400/> ");
+                        console.log("simple");
+                        $("#projects_gallery_imageMobileFile_base64").val(name64);
+                        $("#projects_gallery_imageMobileFile_base64").parent().children(".cropper-canvas-container").html("");
+                        $("#projects_gallery_imageMobileFile_base64").parent().children(".cropper-canvas-container").html("<img src='" + name64 + "' height=400/> ");
                     }, 1000);
                 }
             }

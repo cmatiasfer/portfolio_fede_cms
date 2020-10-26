@@ -52,9 +52,7 @@ class ProjectsGallery
 
     /**
      * @Assert\File(
-     *      mimeTypes = {"image/jpeg", "image/x-citrix-jpeg", "image/png", "image/x-png", "image/x-citrix-png"},
-     *      mimeTypesMessage = "Please upload a valid format (jpg/.png)",
-     *      maxSize = "2048k"
+     *      maxSize = "4048k"
      * )
      * @Vich\UploadableField(mapping="projects_gallery", fileNameProperty="imageMobile")
      * @var File
