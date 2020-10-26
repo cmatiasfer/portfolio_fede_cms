@@ -126,6 +126,9 @@ $(function () {
 				if ((section == "home" && type[1] == "jpeg") || type[1] == "png" || type[1] == "jpg") {
 					$("#home_gallery").find("fieldset").hide();
 				}
+				setTimeout(function(){
+					form_modal.checkOverflow();
+				},2000);
 				resetJs(settings.entityGallery);
 			},
 			error: function () {
