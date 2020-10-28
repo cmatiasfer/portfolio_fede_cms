@@ -25,7 +25,6 @@ $(document).ready(function () {
         about.css('opacity', 1);
         about.css('display', 'initial');
         setTimeout(() => {
-          console.log("fire opacity")
           about.css('opacity', 0);
         }, 800);
         setTimeout(() => {
@@ -75,8 +74,6 @@ $(document).ready(function () {
   }, 500);
 
   $(".owl-carousel").on('initialized.owl.carousel', function (event) {
-    console.log("a");
-    console.log(event);
     var current = event.item.index;
     var idProject = $(event.target).find(".owl-item").eq(current).find('.item').attr("data-project");
     $(".project-desc").removeClass("active");
