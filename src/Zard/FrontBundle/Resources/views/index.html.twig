@@ -29,60 +29,93 @@
 			<h2 id="brand">Federico Bianchi</h2>
 			<div class="btn-header">
 				<div class="languages">
-					<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"
-					class="{{ lang_url == 'es' ? 'active' : '' }}">
-						ES
-					</a>
-					<span> /</span>
-					<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"
-					class="{{ lang_url == 'en' ? 'active' : '' }}">
-						EN
-					</a>
+					<div class="d-flex">
+						{% if lang_url == 'en' %}
+						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"
+						class="{{ lang_url == 'es' ? 'active' : '' }}"> ES </a>
+						{% endif %}
+						{# <span> /</span> #}
+						{% if lang_url == 'es' %}
+						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"
+						class="{{ lang_url == 'en' ? 'active' : '' }}"> EN </a>
+						{% endif %}
+					</div>
 				</div>
 				<span id="btn-menu"></span>
 			</div>
 		</header>
 		
 		<div id="about">
-			<div class="row mt-120">
-				<div class="col">
+			<div class="row container">
+				<div class="col about-studio">
 					<h3>{{ tt('ABOUT_STUDIO','TITLE',lang_url)}}</h3>
 					<div class="content">
 						{{ tt('ABOUT_STUDIO','TEXT',lang_url)|raw }}
 					</div>
+					<div class="studio-data">
+						{# <div class="locations"> #}
+						<div class="container-studio">
+							<div class="column column-first ">
+								<div class="location">
+									<h3>{{ tt('OFICINA_BA','TITLE',lang_url)|striptags('<br><strong><i>')|raw }}</h3>
+									{{ tt('OFICINA_BA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
+								</div>
+								<div class="portfolio">
+									<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
+									{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i><p>')|raw }}
+								</div>
+							</div>
+							<div class="column">
+								<div class="location">
+									<h3>{{ tt('OFICINA_BARCELONA','TITLE',lang_url)|striptags('<br><strong><i>')|raw }}</h3>
+									{{ tt('OFICINA_BARCELONA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
+								</div>
+								<div class="redes">
+									{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
+								</div>
+							</div>
+						</div>
+						{# </div> #}
+						{# <div class="contact">
+							<div class="portfolio">
+								<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
+								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i><p>')|raw }}
+							</div>
+							<div class="redes">
+								{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
+							</div>
+						</div> #}
+					</div>
 				</div>
-				<div class="col">
+				<div class="col about-bianchi">
 					<h3> Federico Bianchi</h3>
 					<div class="content">
 						{{ tt('ABOUT_FEDERICO_BIANCHI','TEXT',lang_url)|raw }}				
 					</div>
 				</div>
-			</div>
-			<div class="row container-data">
-				<div class="col-md-80">
-					<h3 class="desk-show">{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
-					<div class="row content contact">
-						<div class="col request-pdf desk-show">
-							<p>
-								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
-							</p>
+
+				<div class="col studio-data mb">
+					<div class="locations">
+						<div class="office first-office">
+							<h3>{{ tt('OFICINA_BA','TITLE',lang_url)|striptags('<br><strong><i>')|raw }}</h3>
+							{{ tt('OFICINA_BA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 						</div>
-						<div class="col data">
-							{{ tt('CONTACT_DATA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
-						</div>
-						<div class="col">
-							{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
-						</div>
-						<div class="col request-pdf mb-show">
-							<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
-							<p class="request-pdf">
-								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
-							</p>
+						<div class="office">
+							<h3>{{ tt('OFICINA_BARCELONA','TITLE',lang_url)|striptags('<br><strong><i>')|raw }}</h3>
+							{{ tt('OFICINA_BARCELONA','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
 						</div>
 					</div>
-					
+					<div class="contact">
+						<div class="portfolio">
+							<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
+							{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i><p>')|raw }}
+						</div>
+						<div class="redes">
+							{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
+						</div>
+					</div>
 				</div>
-			</div>                    
+			</div>               
 		</div> 
 
 		<div class="owl-carousel">
