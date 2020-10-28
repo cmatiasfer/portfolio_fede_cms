@@ -73,12 +73,10 @@ header .btn-header .languages{
 header .btn-header .languages span,
 header .btn-header .languages a{
     font-family: "Arial";
-    /* font-size: 16px; */
     font-size: 14px;
     color: #ffffff;
     padding: 0px 3px;
     text-decoration: none;
-    /* line-height: 19px; */
     line-height: 16px;
     border-bottom: 1px solid #fff;
 }
@@ -120,10 +118,19 @@ header .btn-header #btn-menu.close{
 .col h3,
 .col p,
 .col a,
-.container-data h3{
+.container-data h3,
+.projects .project-desc p ,
+#about .studio-data.mb > div > div h3,
+#about .studio-data.mb > div > div p,
+#about .studio-data.mb > div > div a,
+#about .studio-data .container-studio .column > div > h3,
+#about .studio-data .container-studio .column > div > p,
+#about .studio-data .container-studio .column > div > a
+{
+    color: #ffffff;
     font-family: "Arial";
     font-size: 16px;
-    color: #ffffff;
+    line-height: 19px;
 }
 
 .content {
@@ -226,16 +233,13 @@ header .btn-header #btn-menu.close{
     display: flex;
 }
 
-#about .studio-data .contact .portfolio{
+#about .studio-data .contact .portfolio {
    display: inline-block;
    margin-right: 29px;
 }
 
-#about .studio-data .contact .portfolio p{
-    font-family: "Arial";
-    font-size: 16px;
-}
-#about .studio-data .contact .portfolio a{
+#about .studio-data.mb .contact .portfolio a,
+#about .studio-data .column .portfolio a {
     display: inline-block;
     border-bottom: 1px solid #fff;
 }
@@ -343,12 +347,6 @@ header .btn-header #btn-menu.close{
     display: block;
 }
 
-.projects .project-desc p{
-    font-family: "Arial";
-    font-size: 18px;
-    color: #ffffff;
-}
-
 .container-data{
     padding: 0px 14px 30px 14px;
 }
@@ -385,6 +383,7 @@ header .btn-header #btn-menu.close{
     
     #about .studio-data .container-studio .column-first{
         margin-right: 55px;
+        min-width: 240px;
     }
 
     #about .studio-data .container-studio .column > div:first-child{
@@ -409,6 +408,23 @@ header .btn-header #btn-menu.close{
 }
 
 @media (min-width: 992px) {
+    .col h3,
+    .col p,
+    .col a,
+    .container-data h3,
+    .projects .project-desc p ,
+    #about .studio-data.mb > div > div h3,
+    #about .studio-data.mb > div > div p,
+    #about .studio-data.mb > div > div a,
+    #about .studio-data .container-studio .column > div > h3,
+    #about .studio-data .container-studio .column > div > p,
+    #about .studio-data .container-studio .column > div > a
+    {
+        color: #ffffff;
+        font-family: "Arial";
+        font-size: 17px;
+        line-height: 21px;
+    }
     .mr{
         margin-right: 180px;
     }
@@ -467,15 +483,12 @@ header .btn-header #btn-menu.close{
     .owl-nav{
         padding: 0px 30px;
     }
-
     .container-data{
         padding: 0px 40px 30px 40px;
     }
     #about .studio-data.mb .locations .office.first-office{
         margin-right: 96px;
     }
-
-    
 }
 @media (min-width: 1346px) {
     /* HEADER */
