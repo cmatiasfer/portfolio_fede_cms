@@ -382,8 +382,7 @@ header .btn-header #btn-menu.close{
     }
     
     #about .studio-data .container-studio .column-first{
-        margin-right: 55px;
-        min-width: 240px;
+        margin-right: 20px;
     }
 
     #about .studio-data .container-studio .column > div:first-child{
@@ -488,6 +487,11 @@ header .btn-header #btn-menu.close{
     }
     #about .studio-data.mb .locations .office.first-office{
         margin-right: 96px;
+    }
+
+    #about .studio-data .container-studio .column-first{
+        margin-right: 55px;
+        min-width: 240px;
     }
 }
 @media (min-width: 1346px) {
