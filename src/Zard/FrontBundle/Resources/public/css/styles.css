@@ -36,7 +36,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
     font-size: 100%;
-    font-family: sans-serif;
+    font-family: 'Arial',sans-serif;
     color: #fff;
 	font: inherit;
     vertical-align: baseline;
@@ -55,8 +55,8 @@ header h2#brand{
     background: url(../img/brand.png);
     background-size: 100%;
     display: block;
-    height: 29px;
-    width: 70px;
+    height: 41px;
+    width: 98px;
     text-indent: -99999px;
 }
 
@@ -264,6 +264,12 @@ header .btn-header #btn-menu.close{
 #about .studio-data.mb .locations .office.first-office{
     margin-right: 10px;
 }
+
+#about .about-studio .content br,
+#about .about-bianchi .content br {
+    display: none;
+}
+
 /* Gallery */
 .owl-carousel {
     overflow: hidden;
@@ -366,6 +372,11 @@ header .btn-header #btn-menu.close{
     
     .content {
         padding-top: 25px;
+    }
+
+    header h2#brand{
+        height: 34px;
+        width: 80px;
     }
 
     #about .about-studio > .content{
@@ -476,6 +487,11 @@ header .btn-header #btn-menu.close{
     #about .contact .request-pdf,
     #about .contact .request-pdf > p{
         margin-top: 0px;
+    }
+
+    #about .about-studio .content br,
+    #about .about-bianchi .content br {
+        display: block;
     }
     
     /* GALLERY */
