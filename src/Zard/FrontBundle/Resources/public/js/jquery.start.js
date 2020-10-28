@@ -106,7 +106,5 @@ $(document).ready(function () {
 
   $('.languages .lang').click(function(){
     var lang = $(this).attr('data-lang');
-    console.log('hola');
-    console.log(lang);
   });
 });
