@@ -55,28 +55,32 @@ header h2#brand{
     background: url(../img/brand.png);
     background-size: 100%;
     display: block;
-    height: 41px;
-    width: 98px;
+    height: 29px;
+    width: 70px;
     text-indent: -99999px;
 }
 
 header .btn-header{
     display: flex;
-    justify-content: space-between;
-    width: 120px;   
+    justify-content: flex-end;
+    width: 60px;   
 }
 
 header .btn-header .languages{
-    display: flex;
+    display: none;
 }
 
 header .btn-header .languages span,
 header .btn-header .languages a{
     font-family: "Arial";
-    font-size: 12px;
+    /* font-size: 16px; */
+    font-size: 14px;
     color: #ffffff;
     padding: 0px 3px;
     text-decoration: none;
+    /* line-height: 19px; */
+    line-height: 16px;
+    border-bottom: 1px solid #fff;
 }
 
 header .btn-header .languages a.active{
@@ -87,16 +91,16 @@ header .btn-header #btn-menu{
     background: url(../img/btn-menu-open.png);
     background-size: 100%;
     display: block;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
 }
 
 header .btn-header #btn-menu.close{
     background: url(../img/btn-menu-close.png);
     background-size: 100%;
     display: block;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
 }
 
 .row{
@@ -110,7 +114,7 @@ header .btn-header #btn-menu.close{
 }
 
 .col{
-    padding: 14px;
+    padding: 0px 14px 0px 14px;
 }
 
 .col h3,
@@ -118,12 +122,12 @@ header .btn-header #btn-menu.close{
 .col a,
 .container-data h3{
     font-family: "Arial";
-    font-size: 18px;
+    font-size: 16px;
     color: #ffffff;
 }
 
 .content {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .row.content .col{
@@ -132,6 +136,10 @@ header .btn-header #btn-menu.close{
 
 .desk-show{
     display: none!important;
+}
+
+.d-flex{
+    display: flex;
 }
 
 /* About */
@@ -150,8 +158,8 @@ header .btn-header #btn-menu.close{
     display: block;
 }
 
-#about .mt-120{
-    margin-top: 140px;
+#about .container{
+    margin-top: 90px;
 }
 
 #about .show-f{
@@ -169,6 +177,22 @@ header .btn-header #btn-menu.close{
     display: block;
 }
 
+#about .about-studio,
+#about .about-bianchi {
+    margin-bottom: 36px;
+}
+
+#about .about-studio p,
+#about .about-bianchi p{
+    margin-bottom: 20px;
+    line-height: 18px;
+}
+
+#about .about-studio p:last-child,
+#about .about-bianchi p:last-child{
+    margin-bottom: 0px;
+}
+
 #about .contact .request-pdf{
     margin-top: 30px;
 }
@@ -177,6 +201,65 @@ header .btn-header #btn-menu.close{
     margin-top: 18px;
 }
 
+#about .studio-data {
+    display: none;
+}
+
+#about .studio-data .locations .office{
+    padding-top: 55px;
+}
+
+#about .studio-data .locations .office{
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+#about .studio-data .locations .office.first-office{
+    margin-right: 60px;
+}
+
+#about .studio-data .locations .office h3{
+    margin-bottom: 25px;
+}
+
+#about .studio-data .contact {
+    display: flex;
+}
+
+#about .studio-data .contact .portfolio{
+   display: inline-block;
+   margin-right: 29px;
+}
+
+#about .studio-data .contact .portfolio p{
+    font-family: "Arial";
+    font-size: 16px;
+}
+#about .studio-data .contact .portfolio a{
+    display: inline-block;
+    border-bottom: 1px solid #fff;
+}
+
+#about .studio-data .contact .redes{
+    display: inline-block;
+}
+
+#about .studio-data.mb{
+    display: block;
+    margin-bottom: 100px;
+}
+
+#about .studio-data .locations{
+    display: flex;
+}
+
+#about .studio-data .locations .office{
+    padding-top: 0px;
+}
+
+#about .studio-data.mb .locations .office.first-office{
+    margin-right: 10px;
+}
 /* Gallery */
 .owl-carousel {
     overflow: hidden;
@@ -275,6 +358,7 @@ header .btn-header #btn-menu.close{
     .col{
         flex: 1;
     }
+    /* GALLERY */
     .owl-carousel img.owl-lazy.img-desk{
         display: block;
     }
@@ -282,18 +366,45 @@ header .btn-header #btn-menu.close{
         display: none;
     }
     
-    /* .row.content .col.col-medium{
-        padding: 0px 20px;
-    }
-    #about .row.contact .col-medium{
-        padding: 0px;
-    } */
-    #about .contact .data{
-        flex-basis: 1;
+    .content {
+        padding-top: 25px;
     }
 
-    #about .contact .request-pdf{
-        flex-basis: 100%;
+    #about .about-studio > .content{
+        margin-bottom: 50px;
+    }
+   
+    #about .studio-data {
+        display: block;
+    }
+
+    /* Tablet-Desktop */
+    #about .studio-data .container-studio {
+        display: flex;
+    }
+    
+    #about .studio-data .container-studio .column-first{
+        margin-right: 55px;
+    }
+
+    #about .studio-data .container-studio .column > div:first-child{
+        margin-bottom: 34px;
+    }
+
+    #about .studio-data .container-studio .column > div > h3{
+        font-family: "Arial";
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+
+    #about .studio-data .container-studio .column > div > p,
+    #about .studio-data .container-studio .column > div > a{
+        font-family: "Arial";
+        font-size: 16px;
+    }
+    
+    #about .studio-data.mb{
+        display: none;
     }
 }
 
@@ -302,7 +413,7 @@ header .btn-header #btn-menu.close{
         margin-right: 180px;
     }
     .col{
-        padding: 0px 40px;
+        padding: 0px 25px;
     }
     .mb-show{
         display: none!important;
@@ -312,70 +423,72 @@ header .btn-header #btn-menu.close{
     }
     /* HEADER */
     header{
-        padding: 40px;
+        padding: 25px;
     }
+    
+    header .btn-header #btn-menu{
+        height: 19px;
+        width: 20px;
+    }
+    
+    header .btn-header .languages span,
+    header .btn-header .languages a{
+        font-size: 16px;
+        line-height: 19px;
+    }
+    
     /* ABOUT */
     #about{
         height: 100vh;
     }
+
+    #about .container{
+        margin-top: 140px;
+    }
+
     #about .contact{
         flex-direction: row;
     }
+
     #about .contact .request-pdf{
         flex-basis: 40%;
     }
+
     #about .contact .data{
         flex-basis: initial;
     }
+
     #about .contact .request-pdf,
     #about .contact .request-pdf > p{
         margin-top: 0px;
     }
+    
     /* GALLERY */
     .owl-nav{
         padding: 0px 30px;
     }
-    /*  */
+
     .container-data{
         padding: 0px 40px 30px 40px;
     }
+    #about .studio-data.mb .locations .office.first-office{
+        margin-right: 96px;
+    }
+
+    
 }
-@media (min-width: 992px) {
-    .mr{
-        margin-right: 180px;
-    }
-    .col{
-        padding: 0px 40px;
-    }
-    .mb-show{
-        display: none!important;
-    }
-    .desk-show{
-        display: block!important;
-    }
+@media (min-width: 1346px) {
     /* HEADER */
     header{
         padding: 40px;
     }
-    /* ABOUT */
-    #about{
-        height: 100vh;
+
+    header h2#brand{
+        height: 41px;
+        width: 98px;
     }
-    #about .contact{
-        flex-direction: row;
-    }
-    #about .contact .request-pdf{
-        flex-basis: 40%;
-    }
-    #about .contact .data{
-        flex-basis: initial;
-    }
-    #about .contact .request-pdf,
-    #about .contact .request-pdf > p{
-        margin-top: 0px;
-    }
-    /* GALLERY */
-    .owl-nav{
-        padding: 0px 30px;
+
+    .col{
+        padding: 0px 40px;
     }
 }

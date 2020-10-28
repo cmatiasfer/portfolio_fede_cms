@@ -1,5 +1,12 @@
 var timeAbout;
 
+$(window).resize(function(){
+  if($(window).width() < 767){
+    $('#about').height('auto')
+  }else{
+    $('#about').height('100vh')
+  }
+});
 
 $(document).ready(function () {
 
@@ -26,7 +33,11 @@ $(document).ready(function () {
           about.removeClass('show');
           animation = true;
         }, 1300);
+        $('.btn-header').css('justify-content','flex-end');
+        $('.languages').hide();
       } else {
+        $('.btn-header').css('justify-content','space-between');
+        $('.languages').show();
         about.toggleClass('show');
         setTimeout(function () {
           if (about.height() <= $(window).height()) {
