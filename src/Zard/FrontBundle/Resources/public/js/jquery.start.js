@@ -9,11 +9,23 @@ $(window).resize(function(){
 });
 
 $(document).ready(function () {
+
+  localStorage = window.localStorage;
+  
+  var object = JSON.parse(localStorage.getItem("menu"));
+  var dateString = object.timestamp;
+  var now = new Date().getTime().toString();
+  var diff = timeDiff(dateString , now);
+
+  
+
   localStorage = window.localStorage;
   var menuStatus = localStorage.getItem('menu');
-  if(menuStatus == 'open'){
+  
+  if(diff == 'seconds'){
     setTimeout(function(){
       $('#btn-menu').click();
+      localStorage.removeItem('menu');
     },80);
   }
 
@@ -41,7 +53,8 @@ $(document).ready(function () {
         }, 1300);
         $('.btn-header').css('justify-content','flex-end');
         $('.languages').hide();
-        localStorage.setItem('menu', 'close');
+        var dataMenu = {menu: "close", timestamp: new Date().getTime()}
+        localStorage.setItem("menu", JSON.stringify(dataMenu));
       } else {
         $('.btn-header').css('justify-content','space-between');
         $('.languages').show();
@@ -53,7 +66,8 @@ $(document).ready(function () {
             about.css('height', 'auto');
           }
         }, 20);
-        localStorage.setItem('menu', 'open');
+        var dataMenu = {menu: "open", timestamp: new Date().getTime()}
+        localStorage.setItem("menu", JSON.stringify(dataMenu));
       }
     }
   });
@@ -114,3 +128,28 @@ $(document).ready(function () {
     var lang = $(this).attr('data-lang');
   });
 });
+
+function timeDiff(curr, prev) { 
+  var ms_Min = 60 * 1000; // milliseconds in Minute 
+  var ms_Hour = ms_Min * 60; // milliseconds in Hour 
+  var ms_Day = ms_Hour * 24; // milliseconds in day 
+  var ms_Mon = ms_Day * 30; // milliseconds in Month 
+  var ms_Yr = ms_Day * 365; // milliseconds in Year 
+  var diff = curr - prev; //difference between dates. 
+  // If the diff is less then milliseconds in a minute 
+  if (diff < ms_Min) { 
+      return 'seconds';
+      // If the diff is less then milliseconds in a Hour 
+  } else if (diff < ms_Hour) { 
+      return 'minutes';
+      // If the diff is less then milliseconds in a day 
+  } else if (diff < ms_Day) { 
+      return 'horas';
+      // If the diff is less then milliseconds in a Month 
+  } else if (diff < ms_Mon) { 
+      return 'Month';
+      // If the diff is less then milliseconds in a year 
+  } else if (diff < ms_Yr) { 
+      return 'years';
+  } 
+} 
