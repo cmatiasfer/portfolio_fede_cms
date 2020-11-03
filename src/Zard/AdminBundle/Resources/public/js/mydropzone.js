@@ -146,7 +146,7 @@ $(function () {
 	});
 
 	/* MODAL OPEN - ACTION BTN SUBMIT */
-	$(document).on("submit", "form[name='" + settings.folderGallery + "']", function (e) {
+	$(document).on("submit", "form[name='" + settings.folderGallery + "'] , form[name='projects_gallery_mb'] ", function (e) {
 		e.preventDefault();
 		Dropzone.autoDiscover = false;
 		var form = $(this);

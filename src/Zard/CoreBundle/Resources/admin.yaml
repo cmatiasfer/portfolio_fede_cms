@@ -57,11 +57,8 @@ admin:
                 DROPZONE:
                     rules_image:
                         dimensions:
-                            width: 1280
-                            #height: 650                            
-                        #mode:
-                            #- resizeToWidth
-                            #- crop
+                            width: 767
+                            #width: 1280
                     FILETYPE: '.jpg,.jpeg,.gif'
                     LANG: 'es'
                     MAXFILESIZE: '4'

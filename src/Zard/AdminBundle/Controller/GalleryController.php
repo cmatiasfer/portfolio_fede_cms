@@ -41,15 +41,18 @@ class GalleryController extends AbstractController
 			//RESIZE IMAGES
 			$fileTemp = $file->getPathname();
 			$type = $file->getMimeType();
+			
 			if($type != 'video/mp4'){
 				$configSection = $adminService->getConfigSection();
 				if(array_key_exists("mode",$configSection["config"]["DROPZONE"]["rules_image"])){
 					$adminService->modifyImage( $fileTemp, $configSection["config"]["DROPZONE"]["rules_image"] );
 				}
 			}
+			//GET DIMENSIONS
+			list($imageWidth, $imageHeight, $type, $attr) = getimagesize($fileTemp);
+
 			
 			$row = $em->getRepository("AppRemo:".$_section->toPascal())->findOneBy([ "id" => $id]);
-			
 			
 			$nameGallery = new Convert($section.'_gallery');
 			$countImages = $em->getRepository("AppRemo:".$nameGallery->toPascal())->count([ $_section->toCamel() => $id ]);
@@ -62,8 +65,8 @@ class GalleryController extends AbstractController
 			$entityGallery->setMainImageFile($file);
 			$entityGallery->setUpdatedAt(new \DateTime());
 			$entityGallery->setListingOrder($orderFinal);
-			/* $entityGallery->setTypeImage($type); */
 			$entityGallery->setVisible(true);
+			$entityGallery->setIsMobile($imageWidth > 900 ? false : true );
 			
 			$em->persist($entityGallery);
 			$em->flush();
@@ -199,9 +202,11 @@ class GalleryController extends AbstractController
 	$find = $em->getRepository("AppRemo:".$nameEntityGallery."Gallery")->findOneBy([ "id" => $id]);
 	$entityGalleryClass = "App\Zard\CoreBundle\Entity\\" . $nameEntityGallery."Gallery";
 	$entityGallery = new $entityGalleryClass();
-	
-	$formClass = "App\Zard\AdminBundle\Form\\" . $nameEntityGallery . 'GalleryType';
-	
+	if($find->getIsMobile()){
+		$formClass = "App\Zard\AdminBundle\Form\\ProjectsGalleryMbType";
+	}else{
+		$formClass = "App\Zard\AdminBundle\Form\\" . $nameEntityGallery . 'GalleryType';
+	}
 	$form = $this->createForm($formClass, $find);
 	$form->handleRequest($request);
 

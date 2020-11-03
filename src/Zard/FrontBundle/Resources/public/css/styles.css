@@ -145,6 +145,10 @@ header .btn-header #btn-menu.close{
     display: none!important;
 }
 
+.mb-show{
+    display: block!important;
+}
+
 .d-flex{
     display: flex;
 }
@@ -358,7 +362,7 @@ header .btn-header #btn-menu.close{
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .col{
         flex: 1;
     }
@@ -368,6 +372,14 @@ header .btn-header #btn-menu.close{
     }
     .owl-carousel img.owl-lazy.img-mb{
         display: none;
+    }
+
+    .mb-show{
+        display: none!important;
+    }
+
+    .desk-show{
+        display: block!important;
     }
     
     .content {
@@ -441,12 +453,7 @@ header .btn-header #btn-menu.close{
     .col{
         padding: 0px 25px;
     }
-    .mb-show{
-        display: none!important;
-    }
-    .desk-show{
-        display: block!important;
-    }
+    
     /* HEADER */
     header{
         padding: 18px 20px;

@@ -96,7 +96,7 @@ $(document).ready(function () {
     });
   }, 500);
 
-  $(".owl-carousel").on('initialized.owl.carousel', function (event) {
+  owl.on('initialized.owl.carousel', function (event) {
     var current = event.item.index;
     var idProject = $(event.target).find(".owl-item").eq(current).find('.item').attr("data-project");
     $(".project-desc").removeClass("active");

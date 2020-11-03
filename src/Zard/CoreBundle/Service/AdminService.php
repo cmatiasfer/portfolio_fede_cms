@@ -586,7 +586,7 @@ class AdminService
         return $rules;
     }
 
-    function modifyImage($pathImage,$rules)
+    function modifyImage($pathImage, $rules)
     {
         $dimensions = $rules["dimensions"];
         $gumlet = new ImageResize($pathImage);

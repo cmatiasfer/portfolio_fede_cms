@@ -91,6 +91,11 @@ class ProjectsGallery
      */
     private $visible;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMobile;
+
     
 
     public function getId(): ?int
@@ -228,6 +233,17 @@ class ProjectsGallery
     public function setVisible(bool $visible): self
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+    public function getIsMobile(): ?bool
+    {
+        return $this->isMobile;
+    }
+
+    public function setIsMobile(bool $isMobile): self
+    {
+        $this->isMobile = $isMobile;
 
         return $this;
     }
