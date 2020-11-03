@@ -118,7 +118,7 @@
 			</div>               
 		</div> 
 
-		<div class="owl-carousel desk-show">
+		<div class="owl-carousel slider-desktop">{# desk-show #}
 			{% for image in projectsGallery %}
 				{% if image.mainImage != "" and not image.isMobile %}
 					<div class="item" data-project="{{image.projects.id}}">
@@ -127,7 +127,7 @@
 				{% endif %}
 			{% endfor %}
 		</div>
-		<div class="owl-carousel mb-show">
+		<div class="owl-carousel slider-mb"> {# mb-show #}
 			{% for imagemb in projectsGallery %}
 				{% if imagemb.imageMobile != "" and not imagemb.isMobile %}
 					<div class="item" data-project="{{imagemb.projects.id}}">

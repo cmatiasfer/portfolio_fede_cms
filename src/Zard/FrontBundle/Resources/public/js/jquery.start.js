@@ -1,32 +1,40 @@
-var timeAbout;
-
-$(window).resize(function(){
-  if($(window).width() < 767){
-    $('#about').height('auto')
+var classSlider;
+$(window).resize(function() {
+  var beforeClassSlider = classSlider;
+  if(isMobile()){
+    classSlider = '.owl-carousel.slider-mb';
+    $('#about').height('auto');
   }else{
-    $('#about').height('100vh')
+    classSlider = '.owl-carousel.slider-desktop';
+    $('#about').height('100vh');
+  }
+  
+  if(beforeClassSlider != classSlider){
+    $(beforeClassSlider).owlCarousel('destroy');
+    startSlide(classSlider);
   }
 });
 
 $(document).ready(function () {
-
   localStorage = window.localStorage;
   
-  var object = JSON.parse(localStorage.getItem("menu"));
-  var dateString = object.timestamp;
-  var now = new Date().getTime().toString();
-  var diff = timeDiff(dateString , now);
+  var dataMenuStorage = JSON.parse(localStorage.getItem("menu"));
+  if( typeof dataMenuStorage == 'string' ){
+    localStorage.removeItem('menu');
+  }
 
-  
-
-  localStorage = window.localStorage;
-  var menuStatus = localStorage.getItem('menu');
-  
-  if(diff == 'seconds'){
-    setTimeout(function(){
-      $('#btn-menu').click();
-      localStorage.removeItem('menu');
-    },80);
+  if(dataMenuStorage) {
+    var dateString = dataMenuStorage.timestamp;
+    
+    var now = new Date().getTime().toString();
+    var diff = timeDiff(dateString , now);
+    
+    if(diff == 'seconds' && dataMenuStorage.menu == 'open'){
+      setTimeout(function(){
+        $('#btn-menu').click();
+        localStorage.removeItem('menu');
+      },80);
+    }
   }
 
   var animation = true;
@@ -96,26 +104,18 @@ $(document).ready(function () {
     });
   }, 500);
 
-  owl.on('initialized.owl.carousel', function (event) {
+  $(owl).on('initialized.owl.carousel', function (event) {
     var current = event.item.index;
     var idProject = $(event.target).find(".owl-item").eq(current).find('.item').attr("data-project");
     $(".project-desc").removeClass("active");
     $(".projects").find(".project-desc[data-project='" + idProject + "']").addClass('active');
   });
 
-  var owl = $(".owl-carousel").owlCarousel({
-    animateIn: 'fadeIn',
-    animateOut: 'fadeOut',
-    autoplay: true,
-    autoplayHoverPause: false,
-    dots: false,
-    items: 1,
-    autoplayTimeout:7000,
-    lazyLoad: true,
-    loop: true,
-    nav: true,
-    navText: ["<div class='btn-left'></div>", "<div class='btn-right'></div>"],
-  });
+  classSlider = '.owl-carousel.slider-desktop';
+  if(isMobile()){
+    classSlider = '.owl-carousel.slider-mb';
+  }
+  var owl = startSlide(classSlider);
 
   owl.on('translate.owl.carousel', function (event) {
     var current = event.item.index;
@@ -153,3 +153,24 @@ function timeDiff(curr, prev) {
       return 'years';
   } 
 } 
+
+function isMobile(){
+  return $(window).width() < 767 ? true: false; 
+}
+
+function startSlide(classSlider){
+  var owl = $(classSlider).owlCarousel({
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut',
+    autoplay: true,
+    autoplayHoverPause: false,
+    dots: false,
+    items: 1,
+    autoplayTimeout:7000,
+    lazyLoad: true,
+    loop: true,
+    nav: true,
+    navText: ["<div class='btn-left'></div>", "<div class='btn-right'></div>"],
+  });
+  return owl;
+}
