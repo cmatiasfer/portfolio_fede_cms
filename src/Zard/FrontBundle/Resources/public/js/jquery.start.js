@@ -18,11 +18,14 @@ $(window).resize(function() {
 $(document).ready(function () {
   localStorage = window.localStorage;
   
-  var dataMenuStorage = JSON.parse(localStorage.getItem("menu"));
-  if( typeof dataMenuStorage == 'string' ){
+  var dataMenuStorage = localStorage.getItem("menu");
+  console.log(typeof dataMenuStorage);
+  if( typeof dataMenuStorage == 'object' ){
+    dataMenuStorage = JSON.parse(localStorage.getItem("menu"));
+  }else{
     localStorage.removeItem('menu');
   }
-
+  
   if(dataMenuStorage) {
     var dateString = dataMenuStorage.timestamp;
     
