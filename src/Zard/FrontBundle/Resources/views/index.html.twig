@@ -34,7 +34,7 @@
 						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"
 						class="{{ lang_url == 'es' ? 'active' : '' }}"> ES </a>
 						{% endif %}
-						{# <span> /</span> #}
+						
 						{% if lang_url == 'es' %}
 						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"
 						class="{{ lang_url == 'en' ? 'active' : '' }}"> EN </a>
@@ -75,16 +75,6 @@
 								</div>
 							</div>
 						</div>
-						{# </div> #}
-						{# <div class="contact">
-							<div class="portfolio">
-								<h3>{{ tt('ABOUT_PORTFOLIO','TITLE',lang_url) }}</h3>
-								{{ tt('ABOUT_PORTFOLIO','TEXT',lang_url)|striptags('<a><br><strong><i><p>')|raw }}
-							</div>
-							<div class="redes">
-								{{ tt('LINK_REDES','TEXT',lang_url)|striptags('<a><br><strong><i>')|raw }}
-							</div>
-						</div> #}
 					</div>
 				</div>
 				<div class="col about-bianchi">

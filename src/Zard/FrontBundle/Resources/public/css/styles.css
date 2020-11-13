@@ -479,6 +479,11 @@ header .btn-header #btn-menu.close{
         margin-top: 140px;
     }
 
+    #about .about-studio,
+    #about .about-bianchi {
+        margin-bottom: 0px;
+    }
+
     #about .contact{
         flex-direction: row;
     }
@@ -517,10 +522,11 @@ header .btn-header #btn-menu.close{
         min-width: 240px;
     }
 }
-@media (min-width: 1346px) {
+
+@media (min-width: 1200px) {
     /* HEADER */
     header{
-        padding: 38px;
+        padding: 34px;
     }
 
     header h2#brand{

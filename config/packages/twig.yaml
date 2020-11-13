@@ -13,4 +13,4 @@ twig:
         - 'bootstrap_4_layout.html.twig'
         - '@PrestaImage/form/bootstrap_4.html.twig'
 
-    # exception_controller: App\Zard\FrontBundle\Controller\ExceptionController::showException
+    exception_controller: App\Zard\FrontBundle\Controller\ExceptionController::showException
