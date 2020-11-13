@@ -526,7 +526,7 @@ header .btn-header #btn-menu.close{
 @media (min-width: 1200px) {
     /* HEADER */
     header{
-        padding: 34px;
+        padding: 30px;
     }
 
     header h2#brand{
