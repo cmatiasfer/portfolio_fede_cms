@@ -1,13 +1,6 @@
 var classSlider;
 $(window).resize(function() {
   var beforeClassSlider = classSlider;
-  if(isMobile()){
-    classSlider = '.owl-carousel.slider-mb';
-    $('#about').height('auto');
-  }else{
-    classSlider = '.owl-carousel.slider-desktop';
-    $('#about').height('100vh');
-  }
   
   if(beforeClassSlider != classSlider){
     $(beforeClassSlider).owlCarousel('destroy');
@@ -18,21 +11,9 @@ $(window).resize(function() {
 $(document).ready(function () {
   localStorage = window.localStorage;
   
-  var dataMenuStorage = localStorage.getItem("menu");
-  console.log(typeof dataMenuStorage);
-  if( typeof dataMenuStorage == 'object' ){
-    dataMenuStorage = JSON.parse(localStorage.getItem("menu"));
-  }else{
-    localStorage.removeItem('menu');
-  }
-  
+  var dataMenuStorage = JSON.parse(localStorage.getItem("menu"));
   if(dataMenuStorage) {
-    var dateString = dataMenuStorage.timestamp;
-    
-    var now = new Date().getTime().toString();
-    var diff = timeDiff(dateString , now);
-    
-    if(diff == 'seconds' && dataMenuStorage.menu == 'open'){
+    if(dataMenuStorage.menu == 'open'){
       setTimeout(function(){
         $('#btn-menu').click();
         localStorage.removeItem('menu');
@@ -64,8 +45,7 @@ $(document).ready(function () {
         }, 1300);
         $('.btn-header').css('justify-content','flex-end');
         $('.languages').hide();
-        var dataMenu = {menu: "close", timestamp: new Date().getTime()}
-        localStorage.setItem("menu", JSON.stringify(dataMenu));
+        
       } else {
         $('.btn-header').css('justify-content','space-between');
         $('.languages').show();
@@ -77,8 +57,6 @@ $(document).ready(function () {
             about.css('height', 'auto');
           }
         }, 20);
-        var dataMenu = {menu: "open", timestamp: new Date().getTime()}
-        localStorage.setItem("menu", JSON.stringify(dataMenu));
       }
     }
   });
@@ -127,8 +105,11 @@ $(document).ready(function () {
     $(".projects").find(".project-desc[data-project='" + idProject + "']").addClass('active');
   });
 
-  $('.languages .lang').click(function(){
-    var lang = $(this).attr('data-lang');
+  $('.languages .lang').click(function(e){
+    e.preventDefault();
+    localStorage.setItem("menu", JSON.stringify({menu: "open"}));
+    var href = $(this).attr('href');
+    window.location.href = href;
   });
 });
 
@@ -169,8 +150,9 @@ function startSlide(classSlider){
     autoplayHoverPause: false,
     dots: false,
     items: 1,
-    autoplayTimeout:7000,
+    autoplayTimeout: 7000,
     lazyLoad: true,
+    lazyLoadEager: 1,
     loop: true,
     nav: true,
     navText: ["<div class='btn-left'></div>", "<div class='btn-right'></div>"],

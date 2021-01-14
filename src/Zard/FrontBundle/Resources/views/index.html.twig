@@ -19,7 +19,7 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
 		
-		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/owl.theme.default.min.css') }}">
+		{# <link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/owl.theme.default.min.css') }}"> #}
 		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/owl.carousel.min.css') }}">
 		<link rel="stylesheet" href="{{ asset(bundleFront ~ '/css/styles.css') }}">
 	</head>
@@ -32,12 +32,12 @@
 					<div class="d-flex">
 						{% if lang_url == 'en' %}
 						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"
-						class="{{ lang_url == 'es' ? 'active' : '' }}"> ES </a>
+						class="lang {{ lang_url == 'es' ? 'active' : '' }}" data-lang="es"> ES </a>
 						{% endif %}
 						
 						{% if lang_url == 'es' %}
 						<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"
-						class="{{ lang_url == 'en' ? 'active' : '' }}"> EN </a>
+						class="lang {{ lang_url == 'en' ? 'active' : '' }}" data-lang="en"> EN </a>
 						{% endif %}
 					</div>
 				</div>
@@ -140,8 +140,8 @@
 		</div>
 	
 
-		<script src="{{ asset(bundleFront ~ '/js/jquery.min.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/jquery.slim.min.js') }}"></script>
 		<script src="{{ asset(bundleFront ~ '/js/owl.carousel.min.js') }}"></script>
-		<script src="{{ asset(bundleFront ~ '/js/jquery.start.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/jquery.start.min.js') }}"></script>
 	</body>
 </html>

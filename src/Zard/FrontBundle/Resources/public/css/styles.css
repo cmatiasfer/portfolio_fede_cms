@@ -1,5 +1,3 @@
-
-
 @font-face {
     font-family: "Arial";
     src: url("../fonts/Arial.eot"); /* IE9 Compat Modes */
@@ -471,12 +469,9 @@ header .btn-header #btn-menu.close{
     }
     
     /* ABOUT */
-    #about{
-        height: 100vh;
-    }
-
     #about .container{
         margin-top: 140px;
+        margin-bottom: 40px;
     }
 
     #about .about-studio,
