@@ -5,8 +5,6 @@ namespace App\Zard\FrontBundle\Controller;
 use App\Repository\Zard\CoreBundle\Entity\ProjectsGalleryRepository;
 use App\Repository\Zard\CoreBundle\Entity\ProjectsRepository;
 use App\Repository\Zard\CoreBundle\Entity\HomeRepository;
-use App\Zard\CoreBundle\Entity\Texts;
-use App\Repository\Zard\CoreBundle\Entity\TextsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +19,6 @@ class HomeController extends AbstractController
     public function index($_locale, Request $request, HomeRepository $homeRepository, ProjectsGalleryRepository $projectsGalleryRepository,ProjectsRepository $projectsRepository)
     {
         $slideHome = $homeRepository->findOneBy(['name' => 'home']);
-
         $orderGallery = $slideHome->getOrderGallery();
         
         if($orderGallery == 'order-random'){
@@ -29,13 +26,17 @@ class HomeController extends AbstractController
         }else{
             $projectsGallery = $projectsGalleryRepository->itemsByOrderProject();
         }
-
+        
         $projects = $projectsRepository->findBy([], ["listingOrder" => "ASC"]);        
+        $coverProjectGallery = $projectsGalleryRepository->getProjectGalleryRandom();
+        
+       /*  dd($coverProjectGallery); */
 
         return $this->render('@front_views/index.html.twig', [
             "projectsGallery" => $projectsGallery,
             "projects" => $projects,
-            'lang_url' => $_locale
+            'lang_url' => $_locale,
+            'coverProjectGallery' => $coverProjectGallery,
         ]);
     }
 }

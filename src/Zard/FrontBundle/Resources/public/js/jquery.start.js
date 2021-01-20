@@ -143,16 +143,37 @@ function isMobile(){
 }
 
 function startSlide(classSlider){
+  var countImgs = 0;
+
   var owl = $(classSlider).owlCarousel({
-    animateIn: 'fadeIn',
-    animateOut: 'fadeOut',
-    autoplay: true,
+    /* animateIn: 'fadeIn',
+    animateOut: 'fadeOut', */
+    autoplay: false,
     autoplayHoverPause: false,
     dots: false,
     items: 1,
     autoplayTimeout: 7000,
     lazyLoad: true,
     lazyLoadEager: 1,
+    onLoadLazy: function(e){
+      console.log("imagenCargando: "+ e.url );
+    },
+    onLoadedLazy: function(e){
+      countImgs++;
+      console.log(countImgs);
+      if(countImgs == 6){
+        console.log("todas las imagenes cargadas")
+        $(".main").fadeOut(1000, function() { $(this).remove(); });
+        if($(window).width() < 767){
+          $(".owl-carousel.slider-mb").css("opacity","1");
+        }else{
+          $(".owl-carousel.slider-desktop").css("opacity","1");
+        }
+        setTimeout(() => {
+          owl.trigger('play.owl.autoplay');
+        }, 100);
+      }
+    },
     loop: true,
     nav: true,
     navText: ["<div class='btn-left'></div>", "<div class='btn-right'></div>"],

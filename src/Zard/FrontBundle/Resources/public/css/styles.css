@@ -359,6 +359,29 @@ header .btn-header #btn-menu.close{
     padding: 0px 14px 30px 14px;
 }
 
+.main{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:11;
+}
+
+.cover-img{
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.owl-carousel {
+    opacity: 0;
+}
+
+.owl-carousel .owl-item .owl-lazy{
+    transition: none!important;
+}
 
 @media (min-width: 767px) {
     .col{

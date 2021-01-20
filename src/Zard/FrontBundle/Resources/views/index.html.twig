@@ -108,6 +108,11 @@
 			</div>               
 		</div> 
 
+		{% set bg = asset('images/projects_gallery/' ~ coverProjectGallery[0].mainImage) %}		
+		<div class="main">
+			<div class="cover-img" style="background-image: url('{{ bg }}')"></div>
+		</div>
+
 		<div class="owl-carousel slider-desktop">{# desk-show #}
 			{% for image in projectsGallery %}
 				{% if image.mainImage != "" and not image.isMobile %}
@@ -117,7 +122,7 @@
 				{% endif %}
 			{% endfor %}
 		</div>
-		<div class="owl-carousel slider-mb"> {# mb-show #}
+		<div class="owl-carousel slider-mb">
 			{% for imagemb in projectsGallery %}
 				{% if imagemb.imageMobile != "" and not imagemb.isMobile %}
 					<div class="item" data-project="{{imagemb.projects.id}}">
@@ -130,7 +135,7 @@
 					</div>
 				{% endif %}
 			{% endfor %}
-		</div>
+		</div> 
 		<div class="projects">
 			{% for project in projects %}
 				{% if project.text != "" %}
@@ -140,8 +145,8 @@
 		</div>
 	
 
-		<script src="{{ asset(bundleFront ~ '/js/jquery.slim.min.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/jquery.min.js') }}"></script>
 		<script src="{{ asset(bundleFront ~ '/js/owl.carousel.min.js') }}"></script>
-		<script src="{{ asset(bundleFront ~ '/js/jquery.start.min.js') }}"></script>
+		<script src="{{ asset(bundleFront ~ '/js/jquery.start.js') }}"></script>
 	</body>
 </html>

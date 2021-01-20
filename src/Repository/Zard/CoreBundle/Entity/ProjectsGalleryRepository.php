@@ -28,12 +28,25 @@ class ProjectsGalleryRepository extends ServiceEntityRepository
             ->execute()
         ;
     }
+    
     public function itemsByOrderProject()
     {
         return $this->createQueryBuilder('pg')
-            ->leftJoin('pg.projects','p')
-            ->orderBy('p.listingOrder,pg.listingOrder' ,'ASC')
+        ->leftJoin('pg.projects','p')
+        ->orderBy('p.listingOrder,pg.listingOrder' ,'ASC')
+        ->getQuery()
+        ->execute()
+        ;
+    }
+    
+    public function getProjectGalleryRandom()
+    {
+        return $this->createQueryBuilder('pg')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->orderBy('rand')
+            ->setMaxResults(1)
             ->getQuery()
+            /* ->getOneOrNullResult() */
             ->execute()
         ;
     }
